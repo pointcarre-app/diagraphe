@@ -3,6 +3,33 @@
 
 ## Scenery main access
 
+
+
+### Locally
+
+
+[localhost:8070](http://localhost:8070/)
+
+```
+python3 serve.py
+
+% python3 serve.py
+
+============================================================
+📐SM DIAGRAPHE SERVER STARTING 📐SM
+============================================================
+📡 PORT REUSE ENABLED - No more 'Address already in use' errors! 🎉
+🌐 CORS ENABLED - Cross-origin requests allowed 🔓
+============================================================
+🔥 Server blazing at http://localhost:8070/ 🔥
+⚡ Press Ctrl+C to stop the server ⚡
+============================================================
+
+```
+
+
+### Github Pages
+
 [Scenery link](https://pointcarre-app.github.io/diagraphe/scenery/)
 
 
@@ -22,6 +49,7 @@
 │   ├── _baseline_diagraphe_demos.js     # Baseline Diagraphe demos JavaScript file
 │   ├── _baseline.html                   # Baseline scenery HTML file
 │   ├── _dynamic.html                    # Dynamic editor HTML file
+│   ├── _circle.html                     # Circles scenery HTML file
 │   ├── _nagini.html                     # Nagini scenery HTML file
 │   └── index.html                       # Main scenery HTML file
 ├── serve.py                             # Python development server
