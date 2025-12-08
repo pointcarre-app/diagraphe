@@ -29,6 +29,7 @@ export class Diagraphe {
 
     // Internal coordinate system (viewBox)
     // If viewBox not provided, defaults to matching display size
+    // TODO 🧂sel: move away
     const displayWidth = typeof this.width === "number" ? this.width : 400;
     const displayHeight = typeof this.height === "number" ? this.height : 400;
 
@@ -85,6 +86,7 @@ export class Diagraphe {
    * Get the transform string for the inner chart area
    * @returns {string} transform attribute value
    */
+  // TODO: sel ensure it is OK
   getChartAreaTransform() {
     return `translate(${this.margin.left}, ${this.margin.top})`;
   }
