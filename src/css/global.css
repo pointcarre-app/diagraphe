@@ -1,0 +1,95 @@
+html {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  scroll-behavior: smooth;
+  height: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  font-weight: 300;
+  -ms-overflow-style: none;
+  height: 100%;
+}
+
+/**************** If emojis are used, we must put them using this class ****************/
+/* (if possible the emoji an independent span is better) but it involves using <foreignObject> */
+/* If not using <foreignObject> but <text>, try to put only the emojy in the text and add the class */
+.emoji {
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji",
+    "Android Emoji", "EmojiSymbols", "EmojiOne Mozilla", "Twemoji Mozilla",
+    "Segoe UI Symbol", "Noto Emoji", sans-serif;
+  /* font-style: normal; */
+  /* font-weight: normal; */
+  /* line-height: 1; */
+}
+
+/**************** Border classes from daisyui theme variables  ****************/
+
+.brc {
+  border-radius: var(--radius-box);
+}
+.brs {
+  border-radius: var(--radius-selector);
+}
+.brf {
+  border-radius: var(--radius-field);
+}
+
+/**************** Fonts classes from daisyui theme variables  ****************/
+.font-body {
+  font-family: var(--font-body);
+}
+.font-heading {
+  font-family: var(--font-heading);
+}
+.font-sans {
+  font-family: var(--font-sans);
+}
+.font-logo {
+  font-family: var(--font-logo);
+  font-weight: 400;
+}
+.font-mono {
+  font-family: var(--font-mono);
+}
+.font-accent {
+  font-family: var(--font-accent);
+}
+.font-handwritten {
+  font-family: var(--font-handwritten);
+}
+
+.font-strong {
+  font-family: var(--font-strong);
+}
+
+/* Iphones */
+/*   
+  * {
+    scroll-margin-top: 50px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--scrollbar-color) var(--scrollbar-color-bg);
+    touch-action: manipulation;
+  } */
+
+/*   
+  .padding-safe {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+  
+  @media (min-width: 375px) {
+    .padding-safe {
+      padding-left: 1.25rem !important;
+      padding-right: 1.25rem !important;
+    }
+  }
+  
+  @media (min-width: 430px) {
+    .padding-safe {
+      padding-left: 1.5rem !important;
+      padding-right: 1.5rem !important;
+    }
+  }
+   */

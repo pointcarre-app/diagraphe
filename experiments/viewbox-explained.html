@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="anchor">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Experiments : viewBox Explained</title>
+
+    <!-- CSS Dependencies -->
+    <link rel="stylesheet" href="../dependencies/google_fonts.css" />
+    <link rel="stylesheet" href="../dependencies/daisyui@5.css" />
+    <link rel="stylesheet" href="../dependencies/daisyui@5themes.css" />
+
+    <!-- Our CSS -->
+    <link rel="stylesheet" href="../src/css/root.css" />
+    <link rel="stylesheet" href="../src/css/daisyui-svg-theming.css" />
+    <link rel="stylesheet" href="../src/css/global.css" />
+
+    <!-- JavaScript Dependencies -->
+    <script src="../dependencies/tailwindcssbrowser@4.js"></script>
+
+    <!-- Theme Switcher Script -->
+    <script>
+        function loadTheme() {
+            const savedTheme = localStorage.getItem('daisyui-theme') || 'anchor';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            updateActiveTheme(savedTheme);
+        }
+
+        function updateActiveTheme(currentTheme) {
+            const dropdownItems = document.querySelectorAll('.dropdown-content a[data-theme]');
+            dropdownItems.forEach(item => {
+                const theme = item.getAttribute('data-theme');
+                const text = item.textContent.replace(' ✓', '');
+                item.textContent = theme === currentTheme ? text + ' ✓' : text;
+            });
+        }
+
+        function switchTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('daisyui-theme', theme);
+            updateActiveTheme(theme);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadTheme();
+            const dropdownItems = document.querySelectorAll('.dropdown-content a[data-theme]');
+            dropdownItems.forEach(item => {
+                item.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const theme = item.getAttribute('data-theme');
+                    switchTheme(theme);
+                });
+            });
+        });
+    </script>
+
+    <style>
+        .svg-container {
+            border: 2px dashed oklch(var(--bc) / 0.3);
+            display: inline-block;
+        }
+
+        .svg-container svg {
+            display: block;
+        }
+
+        .code-inline {
+            font-family: monospace;
+            background: oklch(var(--b2));
+            padding: 0.125rem 0.375rem;
+            border-radius: 0.25rem;
+            font-size: 0.875rem;
+        }
+
+        .section-title {
+            border-bottom: 2px solid oklch(var(--p));
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+        }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <div class="navbar">
+      <div class="navbar-start">
+        <a class="btn btn-ghost text-xl">Experiments : viewBox Explained</a>
+      </div>
+      <div class="navbar-end">
+        <div class="dropdown dropdown-end">
+          <div tabindex="0" role="button" class="btn btn-ghost">
+            Theme
+            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </div>
+          <ul tabindex="0"
+              class="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow space-y-2 px-4 max-h-96 overflow-y-auto">
+            <li>
+              <a data-theme="anchor">Anchor ✓</a>
+            </li>
+            <li>
+              <a data-theme="light">Light</a>
+            </li>
+            <li>
+              <a data-theme="dark">Dark</a>
+            </li>
+            <li>
+              <a data-theme="cupcake">Cupcake</a>
+            </li>
+            <li>
+              <a data-theme="dracula">Dracula</a>
+            </li>
+            <li>
+              <a data-theme="nord">Nord</a>
+            </li>
+            <li>
+              <a data-theme="synthwave">Synthwave</a>
+            </li>
+            <li>
+              <a data-theme="cyberpunk">Cyberpunk</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <main class="container mx-auto p-4 space-y-8">
+
+      <!-- INTRO -->
+      <div class="card bg-base-200 shadow-xl">
+        <div class="card-body">
+          <h2 class="card-title text-2xl section-title">🎯 The Core Concept</h2>
+          <div class="prose max-w-none">
+            <p>
+              <strong>viewBox</strong> defines an internal coordinate system (your "grid paper").
+              <strong>width/height</strong> define the rendered size (the "photocopy size").
+            </p>
+            <p>
+              <span class="code-inline">viewBox="minX minY width height"</span> — The internal canvas you draw on.
+            </p>
+            <p>
+              Think of it like this: You draw on a 100×100 grid. You can then display that drawing at 50px, 200px, or 500px — the internal coordinates never change, only the output scale.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 1: SAME VIEWBOX, DIFFERENT SIZES -->
+      <div class="card bg-base-100 shadow-xl">
+        <div class="card-body">
+          <h2 class="card-title text-xl section-title">1️⃣ Same viewBox, Different Rendered Sizes</h2>
+          <p class="text-base-content/70 mb-4">
+            All these SVGs have <span class="code-inline">viewBox="0 0 100 100"</span> — same internal coordinate system.
+            The shapes are drawn at the same internal positions. Only the rendered size changes.
+          </p>
+
+          <div class="flex flex-wrap items-end gap-6">
+            <!-- 50px -->
+            <div class="text-center">
+              <div class="svg-container">
+                <svg width="50" height="50" viewBox="0 0 100 100">
+                  <rect x="0" y="0" width="100" height="100" class="fill-base-200" />
+                  <circle cx="50" cy="50" r="30" class="fill-primary" />
+                  <rect x="10" y="10" width="20" height="20" class="fill-secondary" />
+                </svg>
+              </div>
+              <div class="mt-2 text-sm">
+                <span class="code-inline">width="50"</span>
+              </div>
+            </div>
+
+            <!-- 100px -->
+            <div class="text-center">
+              <div class="svg-container">
+                <svg width="100" height="100" viewBox="0 0 100 100">
+                  <rect x="0" y="0" width="100" height="100" class="fill-base-200" />
+                  <circle cx="50" cy="50" r="30" class="fill-primary" />
+                  <rect x="10" y="10" width="20" height="20" class="fill-secondary" />
+                </svg>
+              </div>
+              <div class="mt-2 text-sm">
+                <span class="code-inline">width="100"</span>
+              </div>
+            </div>
+
+            <!-- 150px -->
+            <div class="text-center">
+              <div class="svg-container">
+                <svg width="150" height="150" viewBox="0 0 100 100">
+                  <rect x="0" y="0" width="100" height="100" class="fill-base-200" />
+                  <circle cx="50" cy="50" r="30" class="fill-primary" />
+                  <rect x="10" y="10" width="20" height="20" class="fill-secondary" />
+                </svg>
+              </div>
+              <div class="mt-2 text-sm">
+                <span class="code-inline">width="150"</span>
+              </div>
+            </div>
+
+            <!-- 200px -->
+            <div class="text-center">
+              <div class="svg-container">
+                <svg width="200" height="200" viewBox="0 0 100 100">
+                  <rect x="0" y="0" width="100" height="100" class="fill-base-200" />
+                  <circle cx="50" cy="50" r="30" class="fill-primary" />
+                  <rect x="10" y="10" width="20" height="20" class="fill-secondary" />
+                </svg>
+              </div>
+              <div class="mt-2 text-sm">
+                <span class="code-inline">width="200"</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="alert alert-info mt-4">
+            <span>💡 Notice how the circle stays at (50,50) with radius 30 in ALL sizes. The internal coordinates are unchanged!</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 2: ASPECT RATIO MISMATCH -->
+      <div class="card bg-base-100 shadow-xl">
+        <div class="card-body">
+          <h2 class="card-title text-xl section-title">
+            2️⃣ Aspect Ratio Mismatch (viewBox vs Rendered Size)
+          </h2>
+          <p class="text-base-content/70 mb-4">
+            What happens when <span class="code-inline">viewBox="0 0 100 100"</span> (square) but rendered size is rectangular?
+            This is where <span class="code-inline">preserveAspectRatio</span> comes in.
+          </p>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+            <!-- meet (default) -->
+            <div class="text-center">
+              <h3 class="font-bold mb-2">xMidYMid meet (default)</h3>
+              <p class="text-sm text-base-content/60 mb-2">Fits inside, maintains ratio, centers</p>
+              <div class="svg-container" style="width: 200px; height: 100px;">
+                <svg width="200" height="100" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
+                  <rect x="0" y="0" width="100" height="100" class="fill-base-200" />
+                  <circle cx="50" cy="50" r="40" class="fill-primary" />
+                  <text x="50" y="55" text-anchor="middle" class="fill-primary-content" font-size="12">meet</text>
+                </svg>
+              </div>
+              <div class="mt-2 text-xs">
+                <span class="code-inline">preserveAspectRatio="xMidYMid meet"</span>
+              </div>
+            </div>
+
+            <!-- slice -->
+            <div class="text-center">
+              <h3 class="font-bold mb-2">xMidYMid slice</h3>
+              <p class="text-sm text-base-content/60 mb-2">Fills & clips, maintains ratio, centers</p>
+              <div class="svg-container" style="width: 200px; height: 100px; overflow: hidden;">
+                <svg width="200" height="100" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice">
+                  <rect x="0" y="0" width="100" height="100" class="fill-base-200" />
+                  <circle cx="50" cy="50" r="40" class="fill-secondary" />
+                  <text x="50" y="55" text-anchor="middle" class="fill-secondary-content" font-size="12">slice</text>
+                </svg>
+              </div>
+              <div class="mt-2 text-xs">
+                <span class="code-inline">preserveAspectRatio="xMidYMid slice"</span>
+              </div>
+            </div>
+
+            <!-- none -->
+            <div class="text-center">
+              <h3 class="font-bold mb-2">none</h3>
+              <p class="text-sm text-base-content/60 mb-2">Stretches to fill exactly</p>
+              <div class="svg-container" style="width: 200px; height: 100px;">
+                <svg width="200" height="100" viewBox="0 0 100 100" preserveAspectRatio="none">
+                  <rect x="0" y="0" width="100" height="100" class="fill-base-200" />
+                  <circle cx="50" cy="50" r="40" class="fill-accent" />
+                  <text x="50" y="55" text-anchor="middle" class="fill-accent-content" font-size="12">none</text>
+                </svg>
+              </div>
+              <div class="mt-2 text-xs">
+                <span class="code-inline">preserveAspectRatio="none"</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="alert alert-warning mt-4">
+            <span>⚠️ The "none" option distorts the circle into an ellipse. Usually you want "meet" or "slice".</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 3: ALIGNMENT OPTIONS -->
+      <div class="card bg-base-100 shadow-xl">
+        <div class="card-body">
+          <h2 class="card-title text-xl section-title">3️⃣ Alignment Options (with meet)</h2>
+          <p class="text-base-content/70 mb-4">
+            The <span class="code-inline">xMin/xMid/xMax</span> and <span class="code-inline">YMin/YMid/YMax</span> parts control where the content is positioned when there's empty space.
+          </p>
+
+          <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+
+            <!-- xMinYMin -->
+            <div class="text-center">
+              <div class="svg-container" style="width: 150px; height: 80px;">
+                <svg width="150" height="80" viewBox="0 0 100 100" preserveAspectRatio="xMinYMin meet">
+                  <rect x="0" y="0" width="100" height="100" class="fill-primary" />
+                  <circle cx="20" cy="20" r="15" class="fill-base-100" />
+                </svg>
+              </div>
+              <div class="mt-1 text-xs">
+                <span class="code-inline">xMinYMin</span>
+              </div>
+              <div class="text-xs text-base-content/60">Top-Left</div>
+            </div>
+
+            <!-- xMidYMin -->
+            <div class="text-center">
+              <div class="svg-container" style="width: 150px; height: 80px;">
+                <svg width="150" height="80" viewBox="0 0 100 100" preserveAspectRatio="xMidYMin meet">
+                  <rect x="0" y="0" width="100" height="100" class="fill-secondary" />
+                  <circle cx="50" cy="20" r="15" class="fill-base-100" />
+                </svg>
+              </div>
+              <div class="mt-1 text-xs">
+                <span class="code-inline">xMidYMin</span>
+              </div>
+              <div class="text-xs text-base-content/60">Top-Center</div>
+            </div>
+
+            <!-- xMaxYMin -->
+            <div class="text-center">
+              <div class="svg-container" style="width: 150px; height: 80px;">
+                <svg width="150" height="80" viewBox="0 0 100 100" preserveAspectRatio="xMaxYMin meet">
+                  <rect x="0" y="0" width="100" height="100" class="fill-accent" />
+                  <circle cx="80" cy="20" r="15" class="fill-base-100" />
+                </svg>
+              </div>
+              <div class="mt-1 text-xs">
+                <span class="code-inline">xMaxYMin</span>
+              </div>
+              <div class="text-xs text-base-content/60">Top-Right</div>
+            </div>
+
+            <!-- xMinYMid -->
+            <div class="text-center">
+              <div class="svg-container" style="width: 150px; height: 80px;">
+                <svg width="150" height="80" viewBox="0 0 100 100" preserveAspectRatio="xMinYMid meet">
+                  <rect x="0" y="0" width="100" height="100" class="fill-info" />
+                  <circle cx="20" cy="50" r="15" class="fill-base-100" />
+                </svg>
+              </div>
+              <div class="mt-1 text-xs">
+                <span class="code-inline">xMinYMid</span>
+              </div>
+              <div class="text-xs text-base-content/60">Middle-Left</div>
+            </div>
+
+            <!-- xMidYMid -->
+            <div class="text-center">
+              <div class="svg-container" style="width: 150px; height: 80px;">
+                <svg width="150" height="80" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
+                  <rect x="0" y="0" width="100" height="100" class="fill-success" />
+                  <circle cx="50" cy="50" r="15" class="fill-base-100" />
+                </svg>
+              </div>
+              <div class="mt-1 text-xs">
+                <span class="code-inline">xMidYMid</span>
+              </div>
+              <div class="text-xs text-base-content/60">Center (default)</div>
+            </div>
+
+            <!-- xMaxYMid -->
+            <div class="text-center">
+              <div class="svg-container" style="width: 150px; height: 80px;">
+                <svg width="150" height="80" viewBox="0 0 100 100" preserveAspectRatio="xMaxYMid meet">
+                  <rect x="0" y="0" width="100" height="100" class="fill-warning" />
+                  <circle cx="80" cy="50" r="15" class="fill-base-100" />
+                </svg>
+              </div>
+              <div class="mt-1 text-xs">
+                <span class="code-inline">xMaxYMid</span>
+              </div>
+              <div class="text-xs text-base-content/60">Middle-Right</div>
+            </div>
+
+            <!-- xMinYMax -->
+            <div class="text-center">
+              <div class="svg-container" style="width: 150px; height: 80px;">
+                <svg width="150" height="80" viewBox="0 0 100 100" preserveAspectRatio="xMinYMax meet">
+                  <rect x="0" y="0" width="100" height="100" class="fill-error" />
+                  <circle cx="20" cy="80" r="15" class="fill-base-100" />
+                </svg>
+              </div>
+              <div class="mt-1 text-xs">
+                <span class="code-inline">xMinYMax</span>
+              </div>
+              <div class="text-xs text-base-content/60">Bottom-Left</div>
+            </div>
+
+            <!-- xMidYMax -->
+            <div class="text-center">
+              <div class="svg-container" style="width: 150px; height: 80px;">
+                <svg width="150" height="80" viewBox="0 0 100 100" preserveAspectRatio="xMidYMax meet">
+                  <rect x="0" y="0" width="100" height="100" class="fill-neutral" />
+                  <circle cx="50" cy="80" r="15" class="fill-neutral-content" />
+                </svg>
+              </div>
+              <div class="mt-1 text-xs">
+                <span class="code-inline">xMidYMax</span>
+              </div>
+              <div class="text-xs text-base-content/60">Bottom-Center</div>
+            </div>
+
+            <!-- xMaxYMax -->
+            <div class="text-center">
+              <div class="svg-container" style="width: 150px; height: 80px;">
+                <svg width="150" height="80" viewBox="0 0 100 100" preserveAspectRatio="xMaxYMax meet">
+                  <rect x="0" y="0" width="100" height="100" class="fill-base-300" />
+                  <circle cx="80" cy="80" r="15" class="fill-base-content" />
+                </svg>
+              </div>
+              <div class="mt-1 text-xs">
+                <span class="code-inline">xMaxYMax</span>
+              </div>
+              <div class="text-xs text-base-content/60">Bottom-Right</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 4: RESPONSIVE SVG -->
+      <div class="card bg-base-100 shadow-xl">
+        <div class="card-body">
+          <h2 class="card-title text-xl section-title">4️⃣ Responsive SVG (100% width)</h2>
+          <p class="text-base-content/70 mb-4">
+            Set <span class="code-inline">width="100%"</span> and let the SVG fill its container.
+            The viewBox stays fixed, the SVG scales to fit.
+          </p>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+            <!-- Full width responsive -->
+            <div>
+              <h3 class="font-bold mb-2">width="100%" (fills container)</h3>
+              <div class="svg-container w-full">
+                <svg width="100%" viewBox="0 0 200 100" preserveAspectRatio="xMidYMid meet">
+                  <rect x="0" y="0" width="200" height="100" class="fill-base-200" />
+                  <rect x="10" y="10" width="80" height="80" class="fill-primary" />
+                  <circle cx="150" cy="50" r="35" class="fill-secondary" />
+                  <text x="100" y="95" text-anchor="middle" class="fill-base-content" font-size="8">viewBox="0 0 200 100"</text>
+                </svg>
+              </div>
+              <p class="text-xs text-base-content/60 mt-2">↑ Resize your browser window to see this scale!</p>
+            </div>
+
+            <!-- Fixed width comparison -->
+            <div>
+              <h3 class="font-bold mb-2">width="200" (fixed)</h3>
+              <div class="svg-container">
+                <svg width="200" height="100" viewBox="0 0 200 100" preserveAspectRatio="xMidYMid meet">
+                  <rect x="0" y="0" width="200" height="100" class="fill-base-200" />
+                  <rect x="10" y="10" width="80" height="80" class="fill-primary" />
+                  <circle cx="150" cy="50" r="35" class="fill-secondary" />
+                  <text x="100" y="95" text-anchor="middle" class="fill-base-content" font-size="8">viewBox="0 0 200 100"</text>
+                </svg>
+              </div>
+              <p class="text-xs text-base-content/60 mt-2">↑ This stays fixed at 200px</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 5: VIEWBOX OFFSET (minX, minY) -->
+      <div class="card bg-base-100 shadow-xl">
+        <div class="card-body">
+          <h2 class="card-title text-xl section-title">5️⃣ viewBox Offset (minX, minY)</h2>
+          <p class="text-base-content/70 mb-4">
+            The first two values of viewBox (<span class="code-inline">minX minY</span>) define the origin point.
+            This lets you "pan" around a larger coordinate space.
+          </p>
+
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+
+            <!-- Origin at 0,0 -->
+            <div class="text-center">
+              <div class="svg-container">
+                <svg width="100" height="100" viewBox="0 0 100 100">
+                  <rect x="0" y="0" width="200" height="200" class="fill-base-200" />
+                  <circle cx="50" cy="50" r="30" class="fill-primary" />
+                  <circle cx="150" cy="50" r="30" class="fill-secondary" />
+                  <circle cx="50" cy="150" r="30" class="fill-accent" />
+                  <circle cx="150" cy="150" r="30" class="fill-warning" />
+                </svg>
+              </div>
+              <div class="mt-2 text-xs">
+                <span class="code-inline">viewBox="0 0 100 100"</span>
+              </div>
+              <div class="text-xs text-base-content/60">Top-left quadrant</div>
+            </div>
+
+            <!-- Origin at 100,0 -->
+            <div class="text-center">
+              <div class="svg-container">
+                <svg width="100" height="100" viewBox="100 0 100 100">
+                  <rect x="0" y="0" width="200" height="200" class="fill-base-200" />
+                  <circle cx="50" cy="50" r="30" class="fill-primary" />
+                  <circle cx="150" cy="50" r="30" class="fill-secondary" />
+                  <circle cx="50" cy="150" r="30" class="fill-accent" />
+                  <circle cx="150" cy="150" r="30" class="fill-warning" />
+                </svg>
+              </div>
+              <div class="mt-2 text-xs">
+                <span class="code-inline">viewBox="100 0 100 100"</span>
+              </div>
+              <div class="text-xs text-base-content/60">Top-right quadrant</div>
+            </div>
+
+            <!-- Origin at 0,100 -->
+            <div class="text-center">
+              <div class="svg-container">
+                <svg width="100" height="100" viewBox="0 100 100 100">
+                  <rect x="0" y="0" width="200" height="200" class="fill-base-200" />
+                  <circle cx="50" cy="50" r="30" class="fill-primary" />
+                  <circle cx="150" cy="50" r="30" class="fill-secondary" />
+                  <circle cx="50" cy="150" r="30" class="fill-accent" />
+                  <circle cx="150" cy="150" r="30" class="fill-warning" />
+                </svg>
+              </div>
+              <div class="mt-2 text-xs">
+                <span class="code-inline">viewBox="0 100 100 100"</span>
+              </div>
+              <div class="text-xs text-base-content/60">Bottom-left quadrant</div>
+            </div>
+
+            <!-- Origin at 100,100 -->
+            <div class="text-center">
+              <div class="svg-container">
+                <svg width="100" height="100" viewBox="100 100 100 100">
+                  <rect x="0" y="0" width="200" height="200" class="fill-base-200" />
+                  <circle cx="50" cy="50" r="30" class="fill-primary" />
+                  <circle cx="150" cy="50" r="30" class="fill-secondary" />
+                  <circle cx="50" cy="150" r="30" class="fill-accent" />
+                  <circle cx="150" cy="150" r="30" class="fill-warning" />
+                </svg>
+              </div>
+              <div class="mt-2 text-xs">
+                <span class="code-inline">viewBox="100 100 100 100"</span>
+              </div>
+              <div class="text-xs text-base-content/60">Bottom-right quadrant</div>
+            </div>
+          </div>
+
+          <div class="alert alert-success mt-4">
+            <span>✅ This is how you implement panning! Change minX/minY to move the "camera" around your coordinate space.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 6: ZOOM EFFECT -->
+      <div class="card bg-base-100 shadow-xl">
+        <div class="card-body">
+          <h2 class="card-title text-xl section-title">6️⃣ Zoom Effect (viewBox width/height)</h2>
+          <p class="text-base-content/70 mb-4">
+            Smaller viewBox dimensions = zoomed in. Larger viewBox dimensions = zoomed out.
+            The rendered SVG size stays the same!
+          </p>
+
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+
+            <!-- Zoomed in (small viewBox) -->
+            <div class="text-center">
+              <div class="svg-container">
+                <svg width="100" height="100" viewBox="25 25 50 50">
+                  <rect x="0" y="0" width="100" height="100" class="fill-base-200" />
+                  <circle cx="50" cy="50" r="20" class="fill-primary" />
+                  <rect x="10" y="10" width="15" height="15" class="fill-secondary" />
+                  <rect x="75" y="75" width="15" height="15" class="fill-accent" />
+                </svg>
+              </div>
+              <div class="mt-2 text-xs">
+                <span class="code-inline">viewBox="25 25 50 50"</span>
+              </div>
+              <div class="text-xs text-base-content/60">2x zoom (center)</div>
+            </div>
+
+            <!-- Normal -->
+            <div class="text-center">
+              <div class="svg-container">
+                <svg width="100" height="100" viewBox="0 0 100 100">
+                  <rect x="0" y="0" width="100" height="100" class="fill-base-200" />
+                  <circle cx="50" cy="50" r="20" class="fill-primary" />
+                  <rect x="10" y="10" width="15" height="15" class="fill-secondary" />
+                  <rect x="75" y="75" width="15" height="15" class="fill-accent" />
+                </svg>
+              </div>
+              <div class="mt-2 text-xs">
+                <span class="code-inline">viewBox="0 0 100 100"</span>
+              </div>
+              <div class="text-xs text-base-content/60">1x (normal)</div>
+            </div>
+
+            <!-- Zoomed out -->
+            <div class="text-center">
+              <div class="svg-container">
+                <svg width="100" height="100" viewBox="-50 -50 200 200">
+                  <rect x="0" y="0" width="100" height="100" class="fill-base-200" />
+                  <circle cx="50" cy="50" r="20" class="fill-primary" />
+                  <rect x="10" y="10" width="15" height="15" class="fill-secondary" />
+                  <rect x="75" y="75" width="15" height="15" class="fill-accent" />
+                </svg>
+              </div>
+              <div class="mt-2 text-xs">
+                <span class="code-inline">viewBox="-50 -50 200 200"</span>
+              </div>
+              <div class="text-xs text-base-content/60">0.5x zoom (zoomed out)</div>
+            </div>
+
+            <!-- Very zoomed out -->
+            <div class="text-center">
+              <div class="svg-container">
+                <svg width="100" height="100" viewBox="-100 -100 300 300">
+                  <rect x="0" y="0" width="100" height="100" class="fill-base-200" />
+                  <circle cx="50" cy="50" r="20" class="fill-primary" />
+                  <rect x="10" y="10" width="15" height="15" class="fill-secondary" />
+                  <rect x="75" y="75" width="15" height="15" class="fill-accent" />
+                </svg>
+              </div>
+              <div class="mt-2 text-xs">
+                <span class="code-inline">viewBox="-100 -100 300 300"</span>
+              </div>
+              <div class="text-xs text-base-content/60">0.33x zoom</div>
+            </div>
+          </div>
+
+          <div class="alert alert-info mt-4">
+            <span>🔍 Zoom formula: <code>zoom = renderedSize / viewBoxSize</code>. viewBox="0 0 50 50" on a 100px SVG = 2x zoom!</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 7: PRACTICAL RECOMMENDATIONS -->
+      <div class="card bg-base-200 shadow-xl">
+        <div class="card-body">
+          <h2 class="card-title text-2xl section-title">📋 Recommendations for Diagraphe</h2>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <h3 class="font-bold text-lg mb-2">For Fixed-Size Graphs</h3>
+              <ul class="list-disc list-inside space-y-1 text-sm">
+                <li>Use matching viewBox and width/height</li>
+                <li>
+                  <span class="code-inline">viewBox="0 0 400 400"</span> + <span class="code-inline">width="400"</span>
+                </li>
+                <li>1:1 mapping, no scaling surprises</li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 class="font-bold text-lg mb-2">For Resizable Graphs</h3>
+              <ul class="list-disc list-inside space-y-1 text-sm">
+                <li>Fixed viewBox as internal coordinate system</li>
+                <li>Variable width/height for display size</li>
+                <li>
+                  Use <span class="code-inline">preserveAspectRatio="xMidYMid meet"</span>
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 class="font-bold text-lg mb-2">For Pan/Zoom Support</h3>
+              <ul class="list-disc list-inside space-y-1 text-sm">
+                <li>Keep rendered size fixed</li>
+                <li>Modify viewBox minX/minY for panning</li>
+                <li>Modify viewBox width/height for zooming</li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 class="font-bold text-lg mb-2">For Responsive (CSS-sized)</h3>
+              <ul class="list-disc list-inside space-y-1 text-sm">
+                <li>
+                  <span class="code-inline">width="100%"</span> or CSS sizing
+                </li>
+                <li>Fixed viewBox for consistent coordinates</li>
+                <li>SVG auto-scales to container</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div>
+            <h3 class="font-bold text-lg mb-2">Suggested API Pattern</h3>
+            <pre class="bg-base-300 p-4 rounded-lg text-sm overflow-x-auto"><code>new Diagraphe({
+  // Internal coordinate system (fixed)
+  viewBox: { width: 400, height: 400 },
+  
+  // OR for custom origin/zoom:
+  viewBox: { minX: -10, minY: -10, width: 420, height: 420 },
+  
+  // Display size (can be changed)
+  width: 400,    // or "100%" for responsive
+  height: 400,
+  
+  // Aspect ratio handling
+  preserveAspectRatio: "xMidYMid meet"  // default
+})</code></pre>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </body>
+</html>

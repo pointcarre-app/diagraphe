@@ -1,0 +1,20 @@
+<script type="module">
+    // esm.sh automatically resolves ALL ES6 imports - no configuration needed!
+    const naginiModule = await import('https://esm.sh/gh/pointcarre-app/nagini@v0.0.24/src/nagini.js');
+    const Nagini = naginiModule.Nagini;
+
+    // Create manager and start using Python immediately
+    const manager = await Nagini.createManager('pyodide', ['numpy'], [], [],
+        'https://cdn.jsdelivr.net/gh/pointcarre-app/nagini@v0.0.24/src/pyodide/worker/worker-dist.js');
+
+    await Nagini.waitForReady(manager);
+
+    // Execute Python code
+    const result = await manager.executeAsync('demo.py', `
+        import numpy as np
+        data = np.array([1, 2, 3, 4, 5])
+        print(f"Mean: {data.mean()}")
+        `);
+
+    console.log(result.stdout); // "Mean: 3.0"
+</script>
