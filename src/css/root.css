@@ -67,6 +67,7 @@
     var(--color-base-100)
   );
 
+  /* Think it's done */
   /********* Content variants for status colors *********/
   /* Note: These use the DaisyUI theme variables directly */
   /* --color-info-content, --color-success-content, etc. are provided by DaisyUI themes */
