@@ -26,51 +26,43 @@
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/monokai.min.css" />
 
-    <style>
-        .editor-container {
-            height: 400px;
-            border: 1px solid hsl(var(--bc) / 0.2);
-            border-radius: 0.5rem;
-        }
 
-        .preview-container {
-            min-height: 400px;
-            border: 1px solid hsl(var(--bc) / 0.2);
-            border-radius: 0.5rem;
-            padding: 1rem;
-            background: hsl(var(--b1));
+    <style>
+        .CodeMirror {
+            height: 70vh;
         }
     </style>
   </head>
 
   <body class="bg-base-200">
-    <div class="container mx-auto max-w-4xl p-4">
+    <div class="container mx-auto max-w-8xl p-4">
       <!-- Header -->
       <div class="mb-6">
-        <h1 class="text-3xl font-bold text-base-content mb-2">Diagraphe Dynamic Editor</h1>
-        <p class="text-base-content/70">Edit the configuration and see your diagram update in real-time</p>
+        <h1 class="text-xl font-bold text-base-content mb-2">Diagraphe Dynamic Editor</h1>
+
+      </div>
+      <!-- Two Column Layout -->
+
+      <!-- Demo Selector -->
+      <div class="card bg-base-100 shadow-xl mb-6">
+        <div class="card-body p-4">
+          <h2 class="card-title text-lg mb-3">Quick Demos</h2>
+          <div class="grid grid-cols-1 gap-2" id="demo-buttons">
+            <!-- Demo buttons will be added here by JavaScript -->
+          </div>
+        </div>
       </div>
 
-      <!-- Two Column Layout -->
+
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
         <!-- Left Column: Editor -->
         <div class="space-y-4">
+
+
           <div class="card bg-base-100 shadow-xl">
             <div class="card-body p-4">
               <h2 class="card-title text-lg mb-3">Configuration Editor</h2>
-              <div class="editor-container" id="editor-container"></div>
-              <div class="mt-3">
-                <div class="alert alert-info py-2 px-3 text-sm">
-                  <svg xmlns="http://www.w3.org/2000/svg"
-                       fill="none"
-                       viewBox="0 0 24 24"
-                       class="stroke-current shrink-0 w-4 h-4">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
-                    </path>
-                  </svg>
-                  <span>Edit the config object above - changes auto-update the diagram</span>
-                </div>
-              </div>
+              <div class="border border-base-content/20 rounded-lg min-h-96" id="editor-container"></div>
             </div>
           </div>
         </div>
@@ -79,8 +71,8 @@
         <div class="space-y-4">
           <div class="card bg-base-100 shadow-xl">
             <div class="card-body p-4">
-              <h2 class="card-title text-lg mb-3">Live Preview</h2>
-              <div class="preview-container" id="preview-container">
+              <h2 class="card-title text-lg mb-3">Live Preview (padding: 1rem inside the border)</h2>
+              <div class="min-h-96 border border-base-content rounded-lg p-4 bg-base-100" id="preview-container">
                 <!-- Diagram will be rendered here -->
               </div>
               <div class="mt-3" id="error-display" style="display: none;">
@@ -103,56 +95,65 @@
     <!-- Diagraphe Module -->
     <script type="module">
         import {
-            Diagraphe,
-            Element
+            Diagraphe
         } from '../src/diagraphe.js';
-
-        // Default configuration (same as first baseline demo)
-        const defaultConfig = {
-            width: 300,
-            height: 200,
-            margin: {
-                top: 30,
-                right: 40,
-                bottom: 30,
-                left: 40,
-            },
-            svg: {
-                classes: ["bg-base-300"],
-            },
-            elements: [{
-                classes: ["fill-primary"],
-                width: 50,
-                height: 50,
-            }, ],
-        };
+        import {
+            baselineDiagrapheDemos
+        } from './_baseline_diagraphe_demos.js';
 
         let editor;
         let currentDiagram;
 
-        // Initialize CodeMirror Editor
+        // Initialize CodeMirror Editor and Demo Buttons
         document.addEventListener('DOMContentLoaded', function() {
-            editor = CodeMirror(document.getElementById('editor-container'), {
-                value: JSON.stringify(defaultConfig, null, 2).replace(/"([^"]+)":/g, '$1:'),
-                mode: 'javascript',
-                theme: 'monokai',
-                lineNumbers: true,
-                autoCloseBrackets: true,
-                matchBrackets: true,
-                indentUnit: 2,
-                tabSize: 2,
-                lineWrapping: true,
-                fontSize: '14px'
+            // Create demo buttons for first 4 demos
+            const demoButtonsContainer = document.getElementById('demo-buttons');
+            const firstFourDemos = baselineDiagrapheDemos.slice(0, 4);
+
+            firstFourDemos.forEach((demo, index) => {
+                const button = document.createElement('button');
+                button.className = 'btn btn-outline btn-sm w-full text-left justify-start';
+                button.innerHTML = `
+                    <span class="truncate">${demo.label}</span>
+                `;
+                button.title = demo.description;
+                button.addEventListener('click', () => loadDemo(demo));
+                demoButtonsContainer.appendChild(button);
             });
 
-            // Auto-update on content change
-            editor.on('change', function() {
-                debounce(updateDiagram, 500)();
-            });
-
-            // Initial render
-            updateDiagram();
+            // Initialize editor with first demo
+            loadDemo(firstFourDemos[0]);
         });
+
+        function loadDemo(demo) {
+            const config = demo.config;
+
+            // Initialize/update editor
+            if (!editor) {
+                editor = CodeMirror(document.getElementById('editor-container'), {
+                    value: JSON.stringify(config, null, 2).replace(/"([^"]+)":/g, '$1:'),
+                    mode: 'javascript',
+                    theme: 'monokai',
+                    lineNumbers: true,
+                    autoCloseBrackets: true,
+                    matchBrackets: true,
+                    indentUnit: 2,
+                    tabSize: 2,
+                    lineWrapping: true,
+                    fontSize: '14px'
+                });
+
+                // Auto-update on content change
+                editor.on('change', function() {
+                    debounce(updateDiagram, 500)();
+                });
+            } else {
+                editor.setValue(JSON.stringify(config, null, 2).replace(/"([^"]+)":/g, '$1:'));
+            }
+
+            // Update diagram immediately
+            updateDiagram();
+        }
 
         // Debounce function to avoid too frequent updates
         function debounce(func, wait) {
@@ -185,17 +186,6 @@
                     throw new Error('Configuration must be an object');
                 }
 
-                // Convert plain element objects to Element instances
-                if (config.elements && Array.isArray(config.elements)) {
-                    config.elements = config.elements.map(elementConfig => {
-                        // If it's already an Element instance, keep it
-                        if (elementConfig instanceof Element) {
-                            return elementConfig;
-                        }
-                        // Otherwise, convert plain object to Element instance
-                        return new Element(elementConfig);
-                    });
-                }
 
                 // Add container to config
                 config.container = previewContainer;

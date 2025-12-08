@@ -22,6 +22,7 @@ export const baselineDiagrapheDemos = [
                 classes: ['bg-base-300'],
             },
             elements: [{
+                nature: 'rect',
                 classes: ['fill-primary'],
                 width: 50,
                 height: 50
@@ -35,9 +36,54 @@ export const baselineDiagrapheDemos = [
             width: 200,
             height: 100,
             elements: [{
+                nature: 'rect',
                 classes: ['fill-secondary'],
                 width: 160,
                 height: 60
+            }]
+        }
+    },
+
+    {
+        label: '🟢 Large Coords Not responsive (viewBox)',
+        description: '',
+        config: {
+            width: 500,
+            height: 100,
+            viewBox: {
+                width: 500,
+                height: 100
+            },
+            svg: {
+                classes: ['bg-base-300'],
+            },
+            elements: [{
+                nature: 'rect',
+                classes: ['fill-neutral'],
+                width: 400,
+                height: 80
+            }]
+        }
+    },
+    {
+        label: '🟢 Large Coords Responsive (no viewBox)',
+        description: '',
+        config: {
+            width: 500,
+            height: 100,
+            responsive: true,
+            viewBox: {
+                width: 500,
+                height: 100
+            },
+            svg: {
+                classes: ['bg-base-300'],
+            },
+            elements: [{
+                nature: 'rect',
+                classes: ['fill-neutral'],
+                width: 400,
+                height: 80
             }]
         }
     },
@@ -54,6 +100,7 @@ export const baselineDiagrapheDemos = [
                 left: 35
             },
             elements: [{
+                nature: 'rect',
                 classes: ['fill-accent'],
                 width: 130,
                 height: 50
@@ -73,6 +120,7 @@ export const baselineDiagrapheDemos = [
                 left: 5
             },
             elements: [{
+                nature: 'rect',
                 classes: ['fill-neutral'],
                 width: 180,
                 height: 80
@@ -92,6 +140,7 @@ export const baselineDiagrapheDemos = [
                 left: 40
             },
             elements: [{
+                nature: 'rect',
                 classes: ['fill-success'],
                 width: 140,
                 height: 50
@@ -105,6 +154,7 @@ export const baselineDiagrapheDemos = [
             width: 200,
             height: 100,
             elements: [{
+                nature: 'rect',
                 classes: ['fill-warning'],
                 width: 160,
                 height: 80
@@ -124,6 +174,7 @@ export const baselineDiagrapheDemos = [
                 left: 0
             },
             elements: [{
+                nature: 'rect',
                 classes: ['fill-error'],
                 width: 200,
                 height: 100
@@ -143,6 +194,7 @@ export const baselineDiagrapheDemos = [
                 left: 15
             },
             elements: [{
+                nature: 'rect',
                 classes: ['fill-info'],
                 width: 160,
                 height: 60
@@ -156,6 +208,7 @@ export const baselineDiagrapheDemos = [
             width: 200,
             height: 100,
             elements: [{
+                nature: 'rect',
                 classes: ['fill-base-100'],
                 width: 160,
                 height: 80
@@ -169,6 +222,7 @@ export const baselineDiagrapheDemos = [
             width: 200,
             height: 100,
             elements: [{
+                nature: 'rect',
                 classes: ['fill-base-200'],
                 width: 160,
                 height: 80
@@ -182,6 +236,7 @@ export const baselineDiagrapheDemos = [
             width: 200,
             height: 100,
             elements: [{
+                nature: 'rect',
                 classes: ['fill-base-300'],
                 width: 160,
                 height: 80
@@ -195,6 +250,7 @@ export const baselineDiagrapheDemos = [
             width: 200,
             height: 100,
             elements: [{
+                nature: 'rect',
                 classes: ['fill-base-content'],
                 width: 160,
                 height: 80
@@ -212,6 +268,7 @@ export const baselineDiagrapheDemos = [
             width: 200,
             height: 100,
             elements: [{
+                nature: 'rect',
                 classes: ['stroke-primary', 'fill-base-100'],
                 width: 160,
                 height: 80
@@ -225,6 +282,7 @@ export const baselineDiagrapheDemos = [
             width: 200,
             height: 100,
             elements: [{
+                nature: 'rect',
                 classes: ['stroke-secondary', 'fill-base-100'],
                 width: 160,
                 height: 80
@@ -238,6 +296,7 @@ export const baselineDiagrapheDemos = [
             width: 200,
             height: 100,
             elements: [{
+                nature: 'rect',
                 classes: ['stroke-accent', 'fill-base-100', 'stroke-2'],
                 width: 160,
                 height: 80
@@ -251,6 +310,7 @@ export const baselineDiagrapheDemos = [
             width: 200,
             height: 100,
             elements: [{
+                nature: 'rect',
                 classes: ['stroke-neutral', 'fill-base-100'],
                 width: 160,
                 height: 80
@@ -264,6 +324,7 @@ export const baselineDiagrapheDemos = [
             width: 200,
             height: 100,
             elements: [{
+                nature: 'rect',
                 classes: ['stroke-success', 'fill-base-100'],
                 width: 160,
                 height: 80
@@ -277,6 +338,7 @@ export const baselineDiagrapheDemos = [
             width: 200,
             height: 100,
             elements: [{
+                nature: 'rect',
                 classes: ['stroke-warning', 'fill-base-100'],
                 width: 160,
                 height: 80
@@ -290,6 +352,7 @@ export const baselineDiagrapheDemos = [
             width: 200,
             height: 100,
             elements: [{
+                nature: 'rect',
                 classes: ['stroke-error', 'fill-base-100'],
                 width: 160,
                 height: 80
@@ -303,6 +366,7 @@ export const baselineDiagrapheDemos = [
             width: 200,
             height: 100,
             elements: [{
+                nature: 'rect',
                 classes: ['stroke-info', 'fill-base-100'],
                 width: 160,
                 height: 80
@@ -316,6 +380,7 @@ export const baselineDiagrapheDemos = [
             width: 200,
             height: 100,
             elements: [{
+                nature: 'rect',
                 classes: ['stroke-base-100', 'fill-base-100'],
                 width: 160,
                 height: 80
@@ -329,6 +394,7 @@ export const baselineDiagrapheDemos = [
             width: 200,
             height: 100,
             elements: [{
+                nature: 'rect',
                 classes: ['stroke-base-200', 'fill-base-100'],
                 width: 160,
                 height: 80
@@ -342,6 +408,7 @@ export const baselineDiagrapheDemos = [
             width: 200,
             height: 100,
             elements: [{
+                nature: 'rect',
                 classes: ['stroke-base-300', 'fill-base-100'],
                 width: 160,
                 height: 80
@@ -355,6 +422,7 @@ export const baselineDiagrapheDemos = [
             width: 200,
             height: 100,
             elements: [{
+                nature: 'rect',
                 classes: ['stroke-base-content', 'fill-base-100'],
                 width: 160,
                 height: 80
@@ -376,6 +444,7 @@ export const baselineDiagrapheDemos = [
                 height: 100
             },
             elements: [{
+                nature: 'rect',
                 classes: ['fill-primary'],
                 width: 160,
                 height: 80
@@ -393,6 +462,7 @@ export const baselineDiagrapheDemos = [
                 height: 50
             },
             elements: [{
+                nature: 'rect',
                 classes: ['fill-secondary'],
                 width: 80,
                 height: 40
@@ -410,6 +480,7 @@ export const baselineDiagrapheDemos = [
                 height: 200
             },
             elements: [{
+                nature: 'rect',
                 classes: ['fill-accent'],
                 width: 320,
                 height: 160
@@ -429,6 +500,7 @@ export const baselineDiagrapheDemos = [
                 height: 100
             },
             elements: [{
+                nature: 'rect',
                 classes: ['fill-info'],
                 width: 160,
                 height: 80
@@ -447,6 +519,7 @@ export const baselineDiagrapheDemos = [
             },
             preserveAspectRatio: 'xMidYMid meet',
             elements: [{
+                nature: 'rect',
                 classes: ['fill-success'],
                 width: 80,
                 height: 80
@@ -465,6 +538,7 @@ export const baselineDiagrapheDemos = [
             },
             preserveAspectRatio: 'xMidYMid slice',
             elements: [{
+                nature: 'rect',
                 classes: ['fill-warning'],
                 width: 80,
                 height: 80
@@ -483,6 +557,7 @@ export const baselineDiagrapheDemos = [
             },
             preserveAspectRatio: 'none',
             elements: [{
+                nature: 'rect',
                 classes: ['fill-error'],
                 width: 80,
                 height: 80
@@ -500,6 +575,7 @@ export const baselineDiagrapheDemos = [
                 height: 500
             },
             elements: [{
+                nature: 'rect',
                 classes: ['fill-neutral'],
                 width: 800,
                 height: 400

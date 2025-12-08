@@ -4,7 +4,6 @@
 
 ## Tree
 
-
 ```
 ├── dependencies
 │   ├── daisyui@5.css                    # DaisyUI main CSS file
@@ -13,21 +12,23 @@
 │   ├── open_dyslexic_regular.css        # Open Dyslexic Regular font CSS file
 │   └── tailwindcssbrowser@4.js          # Tailwind CSS browser JavaScript file
 ├── experiments
-│   └── viewbox-explained.html           # 🧂 Viewbox explained HTML file
-├── README.md                            # 🔌 README file
+│   └── viewbox-explained.html           # ViewBox explained HTML file
+├── README.md                            # README file
 ├── scenery
-│   ├── _baseline_diagraphe_demos.js     # 🧂 Scenery baseline Diagraphe demos JavaScript file
-│   ├── _baseline.html                   # 🧂 Scenery baseline HTML file
-│   ├── _nagini.html                     # 🧂 Scenery Nagini HTML file
-│   └── index.html                       # 🔌 Scenery HTML file
-├── serve.py
+│   ├── _baseline_diagraphe_demos.js     # Baseline Diagraphe demos JavaScript file
+│   ├── _baseline.html                   # Baseline scenery HTML file
+│   ├── _dynamic.html                    # Dynamic editor HTML file
+│   ├── _nagini.html                     # Nagini scenery HTML file
+│   └── index.html                       # Main scenery HTML file
+├── serve.py                             # Python development server
 ├── src
 │   ├── css
-│   │   ├── daisyui-svg-theming.css      # 🧂 DaisyUI SVG theming CSS file
-│   │   ├── global.css                   # 🧂 Global CSS file
-│   │   └── root.css                     # 🧂 Root CSS file
-│   └── diagraphe.js                     # 🔌 Diagraphe JavaScript file
-└── todos.md                             # 🧂 Diagraphe JavaScript file
+│   │   ├── daisyui-svg-theming.css      # DaisyUI SVG theming CSS file
+│   │   ├── global.css                   # Global CSS file
+│   │   └── root.css                     # Root CSS file
+│   ├── diagraphe.js                     # Main Diagraphe JavaScript library
+│   └── elements.js                      # Element classes (Rectangle, etc.)
+└── todos.md                             # Project TODOs
 ```
 
 
@@ -35,7 +36,6 @@
 ## DaisyUI Theme Variables
 
 
-All variables for DaisyUI theme are defined in the daisyui-theme.css file
 
 
 

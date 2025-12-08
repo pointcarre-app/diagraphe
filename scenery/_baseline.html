@@ -27,8 +27,7 @@
     <!-- Diagraphe Module -->
     <script type="module">
         import {
-            Diagraphe,
-            Element
+            Diagraphe
         } from '../src/diagraphe.js';
         import {
             baselineDiagrapheDemos
@@ -63,19 +62,9 @@
 
                 grid.appendChild(card);
 
-                // Convert element configs to Element instances
-                const config = {
-                    ...demo.config
-                };
-                if (config.elements) {
-                    config.elements = config.elements.map(elementConfig =>
-                        new Element(elementConfig)
-                    );
-                }
-
                 new Diagraphe({
                     container: card.querySelector('.graph-demo'),
-                    ...config
+                    ...demo.config
                 });
             });
         });

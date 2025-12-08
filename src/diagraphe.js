@@ -1,9 +1,12 @@
+import { Rectangle } from './elements.js';
+
 export class Diagraphe {
   /**
    * @param {Object} options - Graph configuration
    * @param {string|HTMLElement} options.container - Container element or selector
    * @param {number|string} [options.width=400] - Display width in pixels or "100%" for responsive
    * @param {number|string} [options.height=400] - Display height in pixels or "100%" for responsive
+   * @param {boolean} [options.responsive=false] - Make SVG responsive (width: 100%, height: auto)
    * @param {Object} [options.viewBox] - Internal coordinate system (fixed)
    * @param {number} [options.viewBox.minX=0] - viewBox origin X
    * @param {number} [options.viewBox.minY=0] - viewBox origin Y
@@ -63,6 +66,7 @@ export class Diagraphe {
         : options.container;
     this.elements = options.elements || [];
 
+    this.responsive = options.responsive ?? false;
     this.svgClasses = options.svg?.classes ?? [];
     this.gClasses = options.g?.classes ?? [];
 
@@ -88,9 +92,22 @@ export class Diagraphe {
   render() {
     // Create SVG element
     const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-    svg.setAttribute("width", this.width);
-    svg.setAttribute("height", this.height);
-    svg.setAttribute("viewBox", this.getViewBoxString());
+
+    // Handle responsive vs fixed sizing
+    if (this.responsive) {
+      // Responsive: use CSS for fluid sizing
+      svg.style.width = "100%";
+      svg.style.height = "auto";
+    } else {
+      // Fixed size: use explicit width/height attributes
+      svg.setAttribute("width", this.width);
+      svg.setAttribute("height", this.height);
+    }
+
+    // Always set viewBox if present (for coordinate system)
+    if (this.viewBox) {
+      svg.setAttribute("viewBox", this.getViewBoxString());
+    }
     svg.setAttribute("preserveAspectRatio", this.preserveAspectRatio);
     svg.setAttribute("class", this.svgClasses.join(" "));
 
@@ -103,7 +120,18 @@ export class Diagraphe {
     // thinner scope :
     // Create elements
     // elements are appended to g (d3 margin pattern)
-    this.elements.forEach((element) => {
+    this.elements.forEach((elementConfig) => {
+      const nature = elementConfig.nature ?? "rect";
+      let element;
+
+      switch (nature) {
+        case "rect":
+          element = new Rectangle(elementConfig);
+          break;
+        default:
+          throw new Error(`Unknown element nature: ${nature}`);
+      }
+
       const svgElement = element.render();
       g.appendChild(svgElement);
     });
@@ -116,38 +144,6 @@ export class Diagraphe {
   }
 }
 
-export class Element {
-  /**
-   * @param {Object} options - Element configuration
-   * @param {Array<string>} options.classes - CSS classes for the element
-   * @param {number} options.width - Element width
-   * @param {number} options.height - Element height
-   * @param {number} [options.x=0] - Element x position
-   * @param {number} [options.y=0] - Element y position
-   */
-  constructor(options) {
-    // Handle classes as either string or array
-    this.classes = Array.isArray(options.classes)
-      ? options.classes
-      : [options.classes];
-    this.width = options.width;
-    this.height = options.height;
-    this.x = options.x ?? 0;
-    this.y = options.y ?? 0;
-  }
-
-  render() {
-    const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-    rect.setAttribute("x", this.x);
-    rect.setAttribute("y", this.y);
-    rect.setAttribute("width", this.width);
-    rect.setAttribute("height", this.height);
-    // Join classes array with spaces
-    rect.setAttribute("class", this.classes.join(" "));
-
-    return rect;
-  }
-}
 
 
 
