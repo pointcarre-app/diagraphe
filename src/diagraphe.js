@@ -68,7 +68,7 @@ export class Diagraphe {
 
     this.responsive = options.responsive ?? false;
     this.svgClasses = options.svg?.classes ?? [];
-    this.gClasses = options.g?.classes ?? [];
+    // this.gClasses = options.g?.classes ?? [];
 
     this.render();
   }
@@ -115,7 +115,7 @@ export class Diagraphe {
     // DON'T SIZE g !!! it adapts
     const g = document.createElementNS("http://www.w3.org/2000/svg", "g");
     g.setAttribute("transform", this.getChartAreaTransform());
-    g.setAttribute("class", this.gClasses.join(" "));
+    // g.setAttribute("class", this.gClasses.join(" "));
 
     // thinner scope :
     // Create elements
