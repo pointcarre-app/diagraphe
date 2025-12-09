@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="en" data-theme="anchor">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Scenery : Curve 1</title>
+    <title>Scenery : Curves</title>
 
     <!-- CSS Dependencies -->
     <link rel="stylesheet" href="../dependencies/google_fonts.css" />
@@ -31,19 +30,15 @@
             Diagraphe
         } from '../src/diagraphe.js';
 
-        document.addEventListener('DOMContentLoaded', () => {
-            const grid = document.querySelector('#grid');
-            grid.innerHTML = '';
 
-            const card = document.createElement('div');
-            card.className = 'card bg-base-100 shadow-xl';
+        let curvesConfig = [
 
-            const label = "Create circle"
-            const description = "Mad tryin out"
-
-            const config = {
+            {
+                label: 'Curve basic',
+                description: 'Tryin',
+                config : {
                     width: 300,
-                    height: 200,
+                    height: 300,
                     margin: {
                         top: 30,
                         right: 40,
@@ -58,6 +53,9 @@
                         classes: ['fill-secondary'],
                         width: 200,
                         height: 200,
+                        grid: true,
+                        yTicks: [1],
+                        xTicks: [1, 5],
                     },{
                         nature: 'circle',
                         classes: ['fill-primary'],
@@ -66,30 +64,76 @@
                         y: 50,
                     }]
                 }
+            },
+            {
+                label: 'Heatmap calendar',
+                description: 'Otctober 2025',
+                config : {
+                    width: 400,
+                    height: 200,
+                    margin: {
+                        top: 30,
+                        right: 40,
+                        bottom: 30,
+                        left: 40
+                    },
+                    svg: {
+                        classes: ['bg-base-300'],
+                    },
+                    elements: [{
+                        nature: 'calendar-heatmap',
+                        classes: ['fill-primary'],
+                        year: 2025,
+                        month: 10,
+                        values: [
+                            1, 5, 3, 0, 0, 9, 4,   // Jours 1-7
+                            7, 6, 10, 0, 0, 3, 5,  // Jours 8-14
+                            9, 4, 7, 0, 0, 3, 5,  // Jours 15-21
+                            8, 2, 9, 0, 0, 6, 10,  // Jours 22-28
+                            3, 5, 8                // Jours 29-31
+                        ],
+                        offset:5,
+                        zeroClasses: ["fill-base-200"],
+                        nanClasses: ["fill-base-content"],
+                    }]
+                }
+            },
+        ]
 
-            // Build config display string
-            const configStr = JSON.stringify(config, null, 2)
-                .replace(/"([^"]+)":/g, '$1:'); // Remove quotes from keys
 
-            card.innerHTML = `
-                <div class="card-body">
-                    <h3 class="card-title text-sm">${label}</h3>
-                    <p class="text-xs text-base-content/60">${description}</p>
-                    <div class="graph-demo my-2"></div>
-                    <details class="collapse collapse-arrow bg-base-200">
-                        <summary class="collapse-title text-xs font-medium py-2 min-h-0">Config</summary>
-                        <div class="collapse-content">
-                            <pre class="text-xs overflow-x-auto"><code>${configStr}</code></pre>
-                        </div>
-                    </details>
-                </div>
-            `;
+        document.addEventListener('DOMContentLoaded', () => {
+            const grid = document.querySelector('#grid');
+            grid.innerHTML = '';
 
-            grid.appendChild(card);
+            curvesConfig.forEach((demo, index) => {
+                const card = document.createElement('div');
+                card.className = 'card bg-base-100 shadow-xl';
+                card.setAttribute('data-demo-id', `demo-${index}`);
 
-            new Diagraphe({
-                container: card.querySelector('.graph-demo'),
-                ...config
+                // Build config display string
+                const configStr = JSON.stringify(demo.config, null, 2)
+                    .replace(/"([^"]+)":/g, '$1:'); // Remove quotes from keys
+
+                card.innerHTML = `
+                    <div class="card-body">
+                        <h3 class="card-title text-sm">${demo.label}</h3>
+                        <p class="text-xs text-base-content/60">${demo.description}</p>
+                        <div class="graph-demo my-2"></div>
+                        <details class="collapse collapse-arrow bg-base-200">
+                            <summary class="collapse-title text-xs font-medium py-2 min-h-0">Config</summary>
+                            <div class="collapse-content">
+                                <pre class="text-xs overflow-x-auto"><code>${configStr}</code></pre>
+                            </div>
+                        </details>
+                    </div>
+                `;
+
+                grid.appendChild(card);
+
+                new Diagraphe({
+                    container: card.querySelector('.graph-demo'),
+                    ...demo.config
+                });
             });
         });
     </script>
