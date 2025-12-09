@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="en" data-theme="anchor">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Scenery : Circle</title>
+    <title>Scenery : Heatmap</title>
 
     <!-- CSS Dependencies -->
     <link rel="stylesheet" href="../dependencies/google_fonts.css" />
@@ -37,11 +38,11 @@
             const card = document.createElement('div');
             card.className = 'card bg-base-100 shadow-xl';
 
-            const label = "Create circle"
+            const label = "Create heatmap"
             const description = "Mad tryin out"
 
             const config = {
-                    width: 300,
+                    width: 400,
                     height: 200,
                     margin: {
                         top: 30,
@@ -53,17 +54,18 @@
                         classes: ['bg-base-300'],
                     },
                     elements: [{
-                        nature: 'circle',
-                        classes: ['fill-secondary'],
-                        radius: 30,
-                        x: 50,
-                        y: 50,
-                    },{
-                        nature: 'circle',
+                        nature: 'heatmap',
                         classes: ['fill-primary'],
-                        radius: 10,
-                        x: 100,
-                        y: 50,
+                        data: [
+                            [1, 2, 3, 4, 5, 6, 7],
+                            [7, 6, 5, 4, 3, null, null],
+                            [1, 2, 3, 4, 5, 6, 7],
+                            [7, 6, 5, 4, 3, 2, 1],
+                            [1, 2, 3, 4, 5, 6, 7]
+                        ],
+                        offset:5,
+                        zeroClasses: ["fill-base-200"],
+                        nanClasses: ["fill-base-content"],
                     }]
                 }
 

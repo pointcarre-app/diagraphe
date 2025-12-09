@@ -1,4 +1,4 @@
-import { Rectangle, Circle } from './elements.js';
+import { Rectangle, Circle, Axes, Heatmap } from './elements.js';
 
 export class Diagraphe {
   /**
@@ -131,8 +131,17 @@ export class Diagraphe {
           element = new Rectangle(elementConfig);
           break;
         case "circle":
-          console.log("coucou")
-          element = new Circle(elementConfig);
+            element = new Circle(elementConfig);
+            break;
+        case "heatmap":
+          // TODO: confim with sel the pattern
+          // TODO: should it be handled outside of the case ?
+          elementConfig.width = elementConfig.width ?? this.innerWidth;
+          elementConfig.height = elementConfig.height ?? this.innerHeight;
+          element = new Heatmap(elementConfig);
+          break;
+        case "axes":
+          element = new Axes(elementConfig);
           break;
         default:
           throw new Error(`Unknown element nature: ${nature}`);
