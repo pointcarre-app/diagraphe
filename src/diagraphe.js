@@ -1,4 +1,4 @@
-import { Rectangle } from './elements.js';
+import { Rectangle, Circle } from './elements.js';
 
 export class Diagraphe {
   /**
@@ -129,6 +129,10 @@ export class Diagraphe {
       switch (nature) {
         case "rect":
           element = new Rectangle(elementConfig);
+          break;
+        case "circle":
+          console.log("coucou")
+          element = new Circle(elementConfig);
           break;
         default:
           throw new Error(`Unknown element nature: ${nature}`);

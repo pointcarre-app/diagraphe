@@ -43,9 +43,42 @@ export class Rectangle extends Element {
     rect.setAttribute("y", this.y);
     rect.setAttribute("width", this.width);
     rect.setAttribute("height", this.height);
+    // TODO: move this to element as it is duplicated 
     // Join classes array with spaces
     rect.setAttribute("class", this.classes.join(" "));
 
     return rect;
+  }
+}
+
+export class Circle extends Element {
+  /**
+   * @param {Object} options - Rectangle configuration
+   * @param {Array<string>} options.classes - CSS classes for the element
+   * @param {number} options.radius - Element radius
+   * @param {number} [options.x=0] - Element x position (center)
+   * @param {number} [options.y=0] - Element y position (center)
+   */
+  constructor(options) {
+    super(options);
+
+    if (options.radius === undefined ) {
+      throw new Error(`Circle requires radius property.`);
+    }
+    this.radius = options.radius;
+    this.x = options.x ?? 0;
+    this.y = options.y ?? 0;
+  }
+
+  render() {
+    console.log("radius", this.radius)
+    const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+    circle.setAttribute("cx", this.x);
+    circle.setAttribute("cy", this.y);
+    circle.setAttribute("r", this.radius);
+    // Join classes array with spaces
+    circle.setAttribute("class", this.classes.join(" "));
+
+    return circle;
   }
 }
