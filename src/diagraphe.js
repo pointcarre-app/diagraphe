@@ -1,4 +1,4 @@
-import { Rectangle, Circle, Axes, Heatmap } from './elements.js';
+import { Rectangle, Circle, Axes, Heatmap, CalendarHeatmap } from './elements.js';
 
 export class Diagraphe {
   /**
@@ -135,10 +135,17 @@ export class Diagraphe {
             break;
         case "heatmap":
           // TODO: confim with sel the pattern
-          // TODO: should it be handled outside of the case ?
+          // or should it be handled outside of the case ?
           elementConfig.width = elementConfig.width ?? this.innerWidth;
           elementConfig.height = elementConfig.height ?? this.innerHeight;
           element = new Heatmap(elementConfig);
+          break;
+        case "calendar-heatmap":
+          // TODO: confim with sel the pattern
+          // or should it be handled outside of the case ?
+          elementConfig.width = elementConfig.width ?? this.innerWidth;
+          elementConfig.height = elementConfig.height ?? this.innerHeight;
+          element = new CalendarHeatmap(elementConfig);
           break;
         case "axes":
           element = new Axes(elementConfig);

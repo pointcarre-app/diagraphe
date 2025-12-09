@@ -212,8 +212,78 @@ export class Heatmap extends Element {
   }
 }
 
+export class CalendarHeatmap extends Heatmap {
+  /**
+   * @param {Object} options - Calendar heatmap configuration
+   * @param {number} options.year - Year (e.g., 2024)
+   * @param {number} options.month - Month (1-12)
+   * @param {Array<number>} options.values - Array of values (one per day)
+   * ... autres options héritées de Heatmap
+   */
+  constructor(options) {
+    // Construire la matrice 2D à partir de year, month, values
+    const data = CalendarHeatmap.buildCalendarMatrix(
+      options.year,
+      options.month,
+      options.values
+    );
 
-// Ajouter sur les examples précédents
+    // Appeler le parent avec la data construite
+    super({
+      ...options,
+      data: data
+    });
+
+    // Stocker pour référence (optionnel)
+    this.year = options.year;
+    this.month = options.month;
+    this.values = options.values;
+  }
+
+    /**
+   * Construit une matrice 2D (semaines x 7 jours, Lundi-Dimanche)
+   * @param {number} year - Année
+   * @param {number} month - Mois (1-12)
+   * @param {Array<number>} values - Valeurs pour chaque jour du mois
+   * @returns {Array<Array<number>>} Matrice 2D
+   */
+  static buildCalendarMatrix(year, month, values) {
+    // 1. Nombre de jours dans le mois
+    const daysInMonth = new Date(year, month, 0).getDate();
+    
+    // 2. Premier jour du mois (0=Dimanche, 1=Lundi, etc.)
+    const firstDay = new Date(year, month - 1, 1).getDay();
+    
+    // 3. Convertir pour Lundi=0, Dimanche=6
+    const firstDayMonday = firstDay === 0 ? 6 : firstDay - 1;
+    
+    // 4. Nombre de semaines nécessaires
+    const totalCells = firstDayMonday + daysInMonth;
+    const numWeeks = Math.ceil(totalCells / 7);
+    
+    // 5. Créer la matrice (semaines x 7 jours)
+    const matrix = Array(numWeeks).fill(null).map(() => Array(7).fill(null));
+    
+    // 6. Remplir avec les valeurs
+    let dayIndex = 0;
+    for (let week = 0; week < numWeeks; week++) {
+      for (let day = 0; day < 7; day++) {
+        const cellIndex = week * 7 + day;
+        const dayOfMonth = cellIndex - firstDayMonday + 1;
+        
+        if (dayOfMonth >= 1 && dayOfMonth <= daysInMonth) {
+          // Jour valide
+          matrix[week][day] = values[dayIndex] ?? 0;
+          dayIndex++;
+        }
+        // else : reste null (cellule vide)
+      }
+    }
+    
+    return matrix;
+  }
+}
+
 // représenter des semaines
 // représenter décembre, puis représenter le 1er du mois
 // + de violet que de gris
