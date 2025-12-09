@@ -118,8 +118,8 @@
                     elements: [{
                         nature: 'axes',
                         classes: ['fill-secondary'],
-                        width: 200,
-                        height: 200,
+                        // width: 200,
+                        // height: 200,
                         xMin: -2,
                         xMax: 2,
                         yMin: -2,
@@ -131,14 +131,76 @@
                         classes: ['stroke-primary'],
                         x: (t) => Math.cos(t),
                         y: (t) => Math.sin(t),
-                        width: 200,
-                        height: 200,
+                        // width: 200,
+                        // height: 200,
                         tMin: 0,
                         tMax: 2 * Math.PI,
                         xMin: -2,
                         xMax: 2,
                         yMin: -2,
                         yMax: 2,
+                    },// Cercle paramétré : x(t) = cos(t), y(t) = sin(t)
+                    {
+                        nature: 'parametric_curve',
+                        classes: ['stroke-primary'],
+                        x: (t) => Math.cos(t),
+                        y: (t) => Math.sin(t),
+                        tMin: 0,
+                        tMax: 2 * Math.PI,
+                        tStep: 0.01,
+                        xMin: -2,
+                        xMax: 2,
+                        yMin: -2,
+                        yMax: 2,
+                        strokeWidth: 2
+                    },
+
+                    // Parabole : x(t) = t, y(t) = t²
+                    {
+                    nature: 'parametric_curve',
+                    classes: ['stroke-secondary'],
+                    x: (t) => t,
+                    y: (t) => t * t,
+                    tMin: -5,
+                    tMax: 5,
+                    tStep: 0.1,
+                    xMin: -6,
+                    xMax: 6,
+                    yMin: -1,
+                    yMax: 26,
+                    strokeWidth: 3
+                    },
+
+                    // Spirale : x(t) = t*cos(t), y(t) = t*sin(t)
+                    {
+                    nature: 'parametric_curve',
+                    classes: ['stroke-accent'],
+                    x: (t) => t * Math.cos(t),
+                    y: (t) => t * Math.sin(t),
+                    tMin: 0,
+                    tMax: 4 * Math.PI,
+                    tStep: 0.05,
+                    xMin: -15,
+                    xMax: 15,
+                    yMin: -15,
+                    yMax: 15,
+                    strokeWidth: 2
+                    },
+
+                    // Lissajous : x(t) = sin(3t), y(t) = sin(2t)
+                    {
+                    nature: 'parametric_curve',
+                    classes: ['stroke-info'],
+                    x: (t) => Math.sin(3 * t),
+                    y: (t) => Math.sin(2 * t),
+                    tMin: 0,
+                    tMax: 2 * Math.PI,
+                    tStep: 0.01,
+                    xMin: -1.5,
+                    xMax: 1.5,
+                    yMin: -1.5,
+                    yMax: 1.5,
+                    strokeWidth: 2
                     }]
                 }
             },

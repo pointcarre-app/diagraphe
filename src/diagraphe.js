@@ -126,8 +126,9 @@ export class Diagraphe {
       const nature = elementConfig.nature ?? "rect";
       let element;
 
-      // TODO: confim with sel the pattern
-      // or should it be handled outside of the case ?
+      // Inject innerWidth and innerHeight for all elements if not provided
+      elementConfig.width = elementConfig.width ?? this.innerWidth;
+      elementConfig.height = elementConfig.height ?? this.innerHeight;
 
       switch (nature) {
         case "rect":
@@ -137,13 +138,9 @@ export class Diagraphe {
             element = new Circle(elementConfig);
             break;
         case "heatmap":
-          elementConfig.width = elementConfig.width ?? this.innerWidth;
-          elementConfig.height = elementConfig.height ?? this.innerHeight;
           element = new Heatmap(elementConfig);
           break;
         case "calendar-heatmap":
-          elementConfig.width = elementConfig.width ?? this.innerWidth;
-          elementConfig.height = elementConfig.height ?? this.innerHeight;
           element = new CalendarHeatmap(elementConfig);
           break;
         case "axes":

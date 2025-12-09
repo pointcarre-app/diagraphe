@@ -9,44 +9,68 @@ export class Element {
       ? options.classes
       : [options.classes];
     this.opacity = options.opacity ?? 100
+  } 
+
+  render() {
+    throw new Error("Element is an abstract base class and cannot be instantiated directly. Use a concrete subclass like Rectangle.");
+  }
+}
+
+
+/**
+ * Base class for elements using mathematical coordinate systems
+ * Handles conversion between mathematical coordinates and SVG coordinates
+ * 
+ * IMPORTANT: width/height should be the drawable area (innerWidth/innerHeight),
+ * not the total SVG dimensions. Diagraphe handles this automatically.
+ */
+export class MathElement extends Element {
+  /**
+   * @param {Object} options
+   * @param {number} options.width - Drawable width (typically innerWidth from Diagraphe)
+   * @param {number} options.height - Drawable height (typically innerHeight from Diagraphe)
+   * @param {number} [options.xMin=-10] - Minimum X in math coordinates
+   * @param {number} [options.xMax=10] - Maximum X in math coordinates
+   * @param {number} [options.yMin=-10] - Minimum Y in math coordinates
+   * @param {number} [options.yMax=10] - Maximum Y in math coordinates
+   */
+  constructor(options) {
+    super(options);
+
+    // Drawable area dimensions (required for conversion)
+    if (options.width === undefined || options.height === undefined) {
+      throw new Error('MathElement requires width and height for coordinate conversion');
+    }
+    this.width = options.width;
+    this.height = options.height;
+
+    // Mathematical coordinate system
+    this.xMin = options.xMin ?? -10;
+    this.xMax = options.xMax ?? 10;
+    this.yMin = options.yMin ?? -10;
+    this.yMax = options.yMax ?? 10;
   }
 
   /**
-   * Convert mathematical x coordinate to SVG x coordinate
-   * @param {number} x - Mathematical x coordinate
-   * @returns {number} SVG x coordinate
+   * Convert mathematical X coordinate to SVG X coordinate
+   * @param {number} x - Mathematical X coordinate
+   * @returns {number} SVG X coordinate
    */
   mathToSvgX(x) {
     return ((x - this.xMin) / (this.xMax - this.xMin)) * this.width;
   }
 
-
   /**
-   * Convert mathematical y coordinate to SVG y coordinate
-   * Note: SVG y-axis is inverted (grows downward)
-   * @param {number} y - Mathematical y coordinate
-   * @returns {number} SVG y coordinate
+   * Convert mathematical Y coordinate to SVG Y coordinate
+   * Note: SVG Y-axis is inverted (grows downward)
+   * @param {number} y - Mathematical Y coordinate
+   * @returns {number} SVG Y coordinate
    */
   mathToSvgY(y) {
     return this.height - ((y - this.yMin) / (this.yMax - this.yMin)) * this.height;
   }
 
-
-  applyClassesAndOpacity(element, overrides = {}) {
-    // TODO: get rid of this function
-    // Utiliser les classes fournies en override, sinon les classes par défaut
-    const classes = overrides.classes ?? this.classes;
-    element.setAttribute("class", Array.isArray(classes) ? classes.join(" ") : classes);
-    
-    // Utiliser l'opacité fournie en override, sinon l'opacité par défaut
-    const opacity = overrides.opacity ?? this.opacity;
-    if (opacity !== undefined) {
-      element.setAttribute("opacity", opacity);
-    }
-  }
-
-
   render() {
-    throw new Error("Element is an abstract base class and cannot be instantiated directly. Use a concrete subclass like Rectangle.");
+    throw new Error('MathElement is an abstract class and must be extended');
   }
 }

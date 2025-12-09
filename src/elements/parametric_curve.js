@@ -1,6 +1,6 @@
-import { Element } from './element.js';
+import { MathElement } from './element.js';
 
-export class ParametricCurve extends Element {
+export class ParametricCurve extends MathElement {
   /**
    * @param {Object} options - Parametric curve configuration
    * @param {Array<string>} options.classes - CSS classes for the element
@@ -20,14 +20,6 @@ export class ParametricCurve extends Element {
    */
   constructor(options) {
     super(options);
-
-    // Coordonnées mathématiques (nécessaires pour la conversion)
-    this.width = options.width;
-    this.height = options.height;
-    this.xMin = options.xMin;
-    this.xMax = options.xMax;
-    this.yMin = options.yMin;
-    this.yMax = options.yMax;
 
     // Fonctions paramétrées
     if (!options.x || !options.y) {

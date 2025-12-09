@@ -75,14 +75,17 @@ export class Heatmap extends Element {
 
         const value = this.data[i][j];
         if (isNaN(value) || value === null) {
-          this.applyClassesAndOpacity(rect, { classes: this.nanClasses }); // Couleur pour NaN
+          rect.setAttribute("class", this.nanClasses.join(" "))
         } else {
           const intensity = (value - min) / (max - min); // 0 à 1
           if (intensity == 0 ){
-            this.applyClassesAndOpacity(rect, { classes: this.zeroClasses})
+            rect.setAttribute("class", this.zeroClasses.join(" "))
           }
           else {
-            this.applyClassesAndOpacity(rect, { opacity: intensity })
+            rect.setAttribute("opacity",intensity)
+            rect.setAttribute("class", this.classes.join(" "))
+
+
           }
         }
 
@@ -90,7 +93,8 @@ export class Heatmap extends Element {
         group.appendChild(rect);
       }
     }
-    this.applyClassesAndOpacity(group)
+    group.setAttribute("class", this.classes.join(" "))
+    group.setAttribute("opacity", this.opacity)
     return group;
   }
 }

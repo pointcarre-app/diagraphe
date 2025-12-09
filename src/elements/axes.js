@@ -1,16 +1,8 @@
-import { Element } from './element.js';
+import { MathElement } from './element.js';
 
-export class Axes extends Element {
+export class Axes extends MathElement {
   /**
-   * @param {Object} options - Axes configuration
-   * @param {Array<string>} options.classes - CSS classes for the group
-   * @param {number} options.width - SVG width
-   * @param {number} options.height - SVG height
-   * @param {number} [options.strokeWidth=1] - Axes stroke width
-   * @param {number} [options.xMin=-1] - Minimum X value
-   * @param {number} [options.xMax=10] - Maximum X value
-   * @param {number} [options.yMin=-1] - Minimum Y value
-   * @param {number} [options.yMax=10] - Maximum Y value
+   * ... params of maths elements
    * @param {number} [options.arrowSize=6] - Arrow size
    * @param {boolean} [options.grid=false] - Show grid
    * @param {Array<string>} [options.gridClasses] - CSS classes for grid lines
@@ -31,19 +23,11 @@ export class Axes extends Element {
    * @param {number} [options.axisLabelFontSize=14] - Font size for axis labels
    * @param {number} [options.axisLabelOffset=15] - Distance from arrow to label
    */
-  // TODO: use markers for ticks and arrows
-  
+
 
   constructor(options) {
     super(options);
-    this.width = options.width;
-    this.height = options.height;
-    this.strokeWidth = options.strokeWidth ?? 1;
-    this.xMin = options.xMin ?? -1;
-    this.xMax = options.xMax ?? 10;
-    this.yMin = options.yMin ?? -1;
-    this.yMax = options.yMax ?? 10;
-    this.arrowSize = options.arrowSize ?? 6; // Taille de la flèche
+
 
     // Configuration de la grille
     this.grid = options.grid ?? false;
@@ -64,6 +48,7 @@ export class Axes extends Element {
     this.fontSize = options.fontSize ?? 12;
 
     // Configuration des labels d'axes
+    this.arrowSize = options.arrowSize ?? 6; // Taille de la flèche
     this.showAxisLabels = options.showAxisLabels ?? false;
     this.xAxisLabel = options.xAxisLabel ?? "x";
     this.yAxisLabel = options.yAxisLabel ?? "y";
@@ -79,13 +64,14 @@ export class Axes extends Element {
 
     // Créer le groupe
     const group = document.createElementNS("http://www.w3.org/2000/svg", "g");
-    // group.setAttribute("class", this.classes.join(" "));
-    this.applyClassesAndOpacity(group)
+    group.setAttribute("class", this.classes.join(" "));
+    group.setAttribute("opacity", this.opacity)
 
     if (this.grid) {
-      console.log("coucou")
       this.renderGrid(group);
     }
+
+    // TODO finir de refactor cette partie
 
     // Créer un élément <defs> pour le marker
     const defs = document.createElementNS("http://www.w3.org/2000/svg", "defs");
@@ -145,7 +131,6 @@ export class Axes extends Element {
     if (this.yTicks) {
       this.renderYTicks(group, axisYPosition);
     }
-
     // Labels des axes (à la fin pour être au-dessus)
     if (this.showAxisLabels) {
       this.renderAxisLabels(group, axisXPosition, axisYPosition);

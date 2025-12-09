@@ -109,7 +109,8 @@ export class Line extends Element {
     line.setAttribute("x2", this.x2);
     line.setAttribute("y2", this.y2);
     line.setAttribute("stroke-width", this.strokeWidth);
-    this.applyClassesAndOpacity(line);
+    line.setAttribute("class", this.classes.join(" "));
+    line.setAttribute("opacity", this.opacity)
     
     group.appendChild(line);
 
