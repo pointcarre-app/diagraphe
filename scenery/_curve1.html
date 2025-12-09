@@ -70,11 +70,11 @@
                 }
             },
             {
-                label: 'Heatmap calendar',
-                description: 'Otctober 2025',
+                label: 'Curve basic',
+                description: 'Tryin',
                 config : {
-                    width: 400,
-                    height: 200,
+                    width: 300,
+                    height: 300,
                     margin: {
                         top: 30,
                         right: 40,
@@ -85,20 +85,60 @@
                         classes: ['bg-base-300'],
                     },
                     elements: [{
-                        nature: 'calendar-heatmap',
-                        classes: ['fill-primary'],
-                        year: 2025,
-                        month: 10,
-                        values: [
-                            1, 5, 3, 0, 0, 9, 4,   // Jours 1-7
-                            7, 6, 10, 0, 0, 3, 5,  // Jours 8-14
-                            9, 4, 7, 0, 0, 3, 5,  // Jours 15-21
-                            8, 2, 9, 0, 0, 6, 10,  // Jours 22-28
-                            3, 5, 8                // Jours 29-31
-                        ],
-                        offset:5,
-                        zeroClasses: ["fill-base-200"],
-                        nanClasses: ["fill-base-content"],
+                        nature: 'axes',
+                        classes: ['fill-secondary'],
+                        width: 200,
+                        height: 200,
+                        xMin:-10,
+                        yMin:-10,
+                        grid: true,
+                        showTickLabels: true,
+                        xTicks: [0, 1, 5],
+                        yTicks: [1],
+                        showAxisLabels: true,
+                        xAxisLabel: "x",
+                        yAxisLabel: "y",
+                    }]
+                }
+            },{
+                label: 'Curve basic',
+                description: 'Tryin',
+                config : {
+                    width: 300,
+                    height: 300,
+                    margin: {
+                        top: 30,
+                        right: 40,
+                        bottom: 30,
+                        left: 40
+                    },
+                    svg: {
+                        classes: ['bg-base-300'],
+                    },
+                    elements: [{
+                        nature: 'axes',
+                        classes: ['fill-secondary'],
+                        width: 200,
+                        height: 200,
+                        xMin: -2,
+                        xMax: 2,
+                        yMin: -2,
+                        yMax: 2,
+                        xTicks: [1],
+                        yTicks: [1],
+                    },{
+                        nature: 'parametric_curve',
+                        classes: ['stroke-primary'],
+                        x: (t) => Math.cos(t),
+                        y: (t) => Math.sin(t),
+                        width: 200,
+                        height: 200,
+                        tMin: 0,
+                        tMax: 2 * Math.PI,
+                        xMin: -2,
+                        xMax: 2,
+                        yMin: -2,
+                        yMax: 2,
                     }]
                 }
             },

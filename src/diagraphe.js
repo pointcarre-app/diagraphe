@@ -1,4 +1,4 @@
-import { Rectangle, Circle, Axes, Heatmap, CalendarHeatmap } from './elements.js';
+import { Axes, Circle, Heatmap, Line, CalendarHeatmap, Rectangle, ParametricCurve } from './elements/index.js';
 
 export class Diagraphe {
   /**
@@ -126,6 +126,9 @@ export class Diagraphe {
       const nature = elementConfig.nature ?? "rect";
       let element;
 
+      // TODO: confim with sel the pattern
+      // or should it be handled outside of the case ?
+
       switch (nature) {
         case "rect":
           element = new Rectangle(elementConfig);
@@ -134,21 +137,23 @@ export class Diagraphe {
             element = new Circle(elementConfig);
             break;
         case "heatmap":
-          // TODO: confim with sel the pattern
-          // or should it be handled outside of the case ?
           elementConfig.width = elementConfig.width ?? this.innerWidth;
           elementConfig.height = elementConfig.height ?? this.innerHeight;
           element = new Heatmap(elementConfig);
           break;
         case "calendar-heatmap":
-          // TODO: confim with sel the pattern
-          // or should it be handled outside of the case ?
           elementConfig.width = elementConfig.width ?? this.innerWidth;
           elementConfig.height = elementConfig.height ?? this.innerHeight;
           element = new CalendarHeatmap(elementConfig);
           break;
         case "axes":
           element = new Axes(elementConfig);
+          break;
+        case "line":
+          element = new Line(elementConfig);
+          break;
+        case "parametric_curve":
+          element = new ParametricCurve(elementConfig);
           break;
         default:
           throw new Error(`Unknown element nature: ${nature}`);
