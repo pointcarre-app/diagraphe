@@ -108,3 +108,50 @@ export class ParametricCurve extends MathElement {
     return pathData;
   }
 }
+
+/**
+ * Function curve: y = f(x)
+ * Simplified wrapper around ParametricCurve for the common case of y = f(x)
+ */
+export class Function extends ParametricCurve {
+  /**
+   * @param {Object} options - Function configuration
+   * @param {Array<string>} options.classes - CSS classes for the element
+   * @param {number} options.width - SVG width (for math coordinates conversion)
+   * @param {number} options.height - SVG height (for math coordinates conversion)
+   * @param {number} options.xMin - Minimum X value in math coordinates
+   * @param {number} options.xMax - Maximum X value in math coordinates
+   * @param {number} options.yMin - Minimum Y value in math coordinates
+   * @param {number} options.yMax - Maximum Y value in math coordinates
+   * @param {Function} options.f - Function f(x) returning Y coordinate
+   * @param {number} [options.xStep=0.01] - Step size for x (replaces tStep)
+   * @param {number} [options.strokeWidth=2] - Curve stroke width
+   * @param {string} [options.fill="none"] - Fill color (usually "none" for curves)
+   */
+  constructor(options) {
+    // Validate that f(x) is provided
+    if (!options.f) {
+      throw new Error('Function requires f(x) function.');
+    }
+
+    // Convert f(x) to parametric form: x(t) = t, y(t) = f(t)
+    const parametricOptions = {
+      ...options,
+      x: (t) => t,           // x = t
+      y: (t) => options.f(t), // y = f(t)
+      tMin:  options.tMin ?? options.xMin,     // t starts at xMin
+      tMax:  options.tMax ?? options.xMax,     // t ends at xMax
+      tStep: options.xStep ?? 0.01
+    };
+
+    // Call parent constructor with parametric form
+    super(parametricOptions);
+
+    // Store original function for reference
+    this.f = options.f;
+    this.xStep = options.xStep ?? 0.01;
+  }
+
+  // No need to override render(), generatePoints(), or buildPathData()
+  // They are inherited from ParametricCurve and work perfectly!
+}

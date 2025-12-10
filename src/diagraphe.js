@@ -1,4 +1,4 @@
-import { Axes, Circle, Heatmap, Line, CalendarHeatmap, Rectangle, ParametricCurve } from './elements/index.js';
+import { Axes, Circle, Dot, Function, Heatmap, Line, CalendarHeatmap, Rectangle, ParametricCurve } from './elements/index.js';
 
 export class Diagraphe {
   /**
@@ -137,6 +137,9 @@ export class Diagraphe {
         case "circle":
             element = new Circle(elementConfig);
             break;
+        case "line":
+          element = new Line(elementConfig);
+          break;
         case "heatmap":
           element = new Heatmap(elementConfig);
           break;
@@ -146,8 +149,11 @@ export class Diagraphe {
         case "axes":
           element = new Axes(elementConfig);
           break;
-        case "line":
-          element = new Line(elementConfig);
+        case "dot":
+          element = new Dot(elementConfig);
+          break;
+        case "function":
+          element = new Function(elementConfig);
           break;
         case "parametric_curve":
           element = new ParametricCurve(elementConfig);

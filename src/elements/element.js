@@ -70,6 +70,8 @@ export class MathElement extends Element {
     return this.height - ((y - this.yMin) / (this.yMax - this.yMin)) * this.height;
   }
 
+
+
   render() {
     throw new Error('MathElement is an abstract class and must be extended');
   }
