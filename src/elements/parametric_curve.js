@@ -152,6 +152,6 @@ export class Function extends ParametricCurve {
     this.xStep = options.xStep ?? 0.01;
   }
 
-  // No need to override render(), generatePoints(), or buildPathData()
+  // No need to override renderShape(), generatePoints(), or buildPathData()
   // They are inherited from ParametricCurve and work perfectly!
 }
