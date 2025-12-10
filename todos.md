@@ -17,12 +17,12 @@
 
 ### Refactoring
 
-- [ ] heatmap and tree should use rectangles, dot and lines only
-- [ ] Document that I tolerate redundancy of axes just becuase it would create a spaghetti
 - [ ] finir refactoring
+- [ ] should heatmap and tree use basic_shapes ?
+    - Ragarding this approach: I may tolerate redundancy of axes just because it would create a spaghetti
 
 
 ### ABC
 
 - [ ] render label method
-- [ ] rename Math* Cartesian*
+- [x] rename Math* Cartesian*

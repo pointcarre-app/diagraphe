@@ -71,58 +71,11 @@ export class Axes extends CartesianElement {
       this.renderGrid(group);
     }
 
-    // TODO finir de refactor cette partie
+    // 2. Arrows (defs)
+    const markerId = this.renderArrows(group);
 
-    // Créer un élément <defs> pour le marker
-    const defs = document.createElementNS("http://www.w3.org/2000/svg", "defs");
-    
-    // Créer le marker (flèche)
-    const marker = document.createElementNS("http://www.w3.org/2000/svg", "marker");
-    marker.setAttribute("id", `arrow-${Math.random().toString(36).substr(2, 9)}`); // ID unique
-    marker.setAttribute("markerWidth", this.arrowSize);
-    marker.setAttribute("markerHeight", this.arrowSize);
-    marker.setAttribute("refX", this.arrowSize - 1);
-    marker.setAttribute("refY", this.arrowSize / 2);
-    marker.setAttribute("orient", "auto");
-    
-    // Créer le chemin de la flèche
-    const arrowPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
-    arrowPath.setAttribute("d", `M 0 0 L ${this.arrowSize} ${this.arrowSize / 2} L 0 ${this.arrowSize} Z`);
-    arrowPath.setAttribute("fill", "black");
-    
-    marker.appendChild(arrowPath);
-    defs.appendChild(marker);
-    group.appendChild(defs);
-
-    const markerId = marker.getAttribute("id");
-
-    // Axe X
-    const axisX = document.createElementNS("http://www.w3.org/2000/svg", "line");
-    axisX.setAttribute("x1", 0);
-    axisX.setAttribute("x2", this.width);
-    axisX.setAttribute("y1", axisXPosition);
-    axisX.setAttribute("y2", axisXPosition);
-    axisX.setAttribute("stroke", "black");
-    axisX.setAttribute("stroke-width", this.strokeWidth);
-
-    // Ajouter la flèche si l'extrémité positive est visible
-    axisX.setAttribute("marker-end", `url(#${markerId})`);
-
-
-    // Axe Y
-    const axisY = document.createElementNS("http://www.w3.org/2000/svg", "line");
-    axisY.setAttribute("x1", axisYPosition);
-    axisY.setAttribute("x2", axisYPosition);
-    axisY.setAttribute("y1", this.height);
-    axisY.setAttribute("y2", 0);
-    axisY.setAttribute("stroke", "black");
-    axisY.setAttribute("stroke-width", this.strokeWidth);
-
-    axisY.setAttribute("marker-end", `url(#${markerId})`);
-
-    // Ajouter les axes au groupe
-    group.appendChild(axisX);
-    group.appendChild(axisY);
+    // 3. Axes lines
+    this.renderAxesLines(group, axisXPosition, axisYPosition, markerId);
 
     // Ticks APRÈS les axes (pour qu'ils soient au-dessus)
     if (this.xTicks) {
@@ -288,5 +241,66 @@ export class Axes extends CartesianElement {
     yLabel.setAttribute("text-anchor", "start");
     yLabel.textContent = this.yAxisLabel;
     group.appendChild(yLabel);
+  }
+
+  /**
+   * Create arrow markers for axes
+   * @param {SVGElement} group - Parent group element
+   * @returns {string} The marker ID to use in marker-end attributes
+   */
+  renderArrows(group) {
+    const defs = document.createElementNS("http://www.w3.org/2000/svg", "defs");
+    
+    const marker = document.createElementNS("http://www.w3.org/2000/svg", "marker");
+    const markerId = `arrow-${Math.random().toString(36).substr(2, 9)}`;
+    marker.setAttribute("id", markerId);
+    marker.setAttribute("markerWidth", this.arrowSize);
+    marker.setAttribute("markerHeight", this.arrowSize);
+    marker.setAttribute("refX", this.arrowSize - 1);
+    marker.setAttribute("refY", this.arrowSize / 2);
+    marker.setAttribute("orient", "auto");
+    
+    const arrowPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    arrowPath.setAttribute("d", `M 0 0 L ${this.arrowSize} ${this.arrowSize / 2} L 0 ${this.arrowSize} Z`);
+    arrowPath.setAttribute("fill", "black");
+    
+    marker.appendChild(arrowPath);
+    defs.appendChild(marker);
+    group.appendChild(defs);
+    
+    return markerId;
+  }
+
+
+    /**
+   * Render the X and Y axis lines with arrows
+   * @param {SVGElement} group - Parent group element
+   * @param {number} axisXPosition - Y position of X axis
+   * @param {number} axisYPosition - X position of Y axis
+   * @param {string} markerId - Arrow marker ID
+   */
+  renderAxesLines(group, axisXPosition, axisYPosition, markerId) {
+    // Axe X
+    const axisX = document.createElementNS("http://www.w3.org/2000/svg", "line");
+    axisX.setAttribute("x1", 0);
+    axisX.setAttribute("x2", this.width);
+    axisX.setAttribute("y1", axisXPosition);
+    axisX.setAttribute("y2", axisXPosition);
+    axisX.setAttribute("stroke", "black");
+    axisX.setAttribute("stroke-width", this.strokeWidth);
+    axisX.setAttribute("marker-end", `url(#${markerId})`);
+
+    // Axe Y
+    const axisY = document.createElementNS("http://www.w3.org/2000/svg", "line");
+    axisY.setAttribute("x1", axisYPosition);
+    axisY.setAttribute("x2", axisYPosition);
+    axisY.setAttribute("y1", this.height);
+    axisY.setAttribute("y2", 0);
+    axisY.setAttribute("stroke", "black");
+    axisY.setAttribute("stroke-width", this.strokeWidth);
+    axisY.setAttribute("marker-end", `url(#${markerId})`);
+
+    group.appendChild(axisX);
+    group.appendChild(axisY);
   }
 }
