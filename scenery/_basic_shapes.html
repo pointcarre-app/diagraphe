@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Scenery : Circle</title>
+    <title>Scenery : Basic Shapes</title>
 
     <!-- CSS Dependencies -->
     <link rel="stylesheet" href="../dependencies/google_fonts.css" />
@@ -37,22 +37,29 @@
             const card = document.createElement('div');
             card.className = 'card bg-base-100 shadow-xl';
 
-            const label = "Create circle"
-            const description = "Mad tryin out"
+            const label = "Basic shapes"
+            const description = "Pure geometry"
 
             const config = {
-                    width: 300,
-                    height: 200,
                     margin: {
-                        top: 30,
-                        right: 40,
-                        bottom: 30,
-                        left: 40
+                        top: 20,
+                        right: 20,
+                        bottom: 20,
+                        left: 20
                     },
                     svg: {
                         classes: ['bg-base-300'],
                     },
-                    elements: [{
+                    elements: [
+                    {
+                        nature: 'rect',
+                        classes: ['fill-secondary'],
+                        width: 20,
+                        height: 10,
+                        x : 100,
+                        y : 80,
+                    },
+                    {
                         nature: 'circle',
                         classes: ['fill-secondary'],
                         radius: 30,

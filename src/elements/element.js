@@ -40,7 +40,7 @@ export class Element {
  * IMPORTANT: width/height should be the drawable area (innerWidth/innerHeight),
  * not the total SVG dimensions. Diagraphe handles this automatically.
  */
-export class MathElement extends Element {
+export class CartesianElement extends Element {
   /**
    * @param {Object} options
    * @param {number} options.width - Drawable width (typically innerWidth from Diagraphe)

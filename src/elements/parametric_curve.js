@@ -1,6 +1,6 @@
-import { MathElement } from './element.js';
+import { CartesianElement } from './element.js';
 
-export class ParametricCurve extends MathElement {
+export class ParametricCurve extends CartesianElement {
   /**
    * @param {Object} options - Parametric curve configuration
    * @param {Array<string>} options.classes - CSS classes for the element

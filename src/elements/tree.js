@@ -47,24 +47,30 @@ export class ProbabilityTree extends Element {
             const result = this.layoutHorizontal(this.data, 0, 0, 0, nodes, branches);
             
             // Center the tree horizontally based on total width
-            const totalWidth = result.maxX;
+            // const totalWidth = result.maxX;
             // const offsetX = (this.width - totalWidth) / 2;
             const offsetX = this.labelOffset;
+            const offsetY = (this.height - result.maxY)/2;
             
             // Apply offset to all nodes and branches
             nodes.forEach(node => node.x += offsetX + this.leafSpacing);
+            nodes.forEach(node => node.y += offsetY);
             branches.forEach(branch => {
                 branch.x1 += this.leafSpacing;
                 branch.x2 += this.leafSpacing;
+                branch.y1 += offsetY;
+                branch.y2 += offsetY;
             });
             
         } else {
             const result = this.layoutVertical(this.data, 0, 0, 0, nodes, branches);
             
             // Center the tree vertically based on total height
-            const totalHeight = result.maxY;
+            // const totalHeight = result.maxY;
             // const offsetY = (this.height - totalHeight) / 2;
             const offsetY = this.labelOffset;
+            const offsetX = (this.width - result.maxY) / 2;
+
             
             // Apply offset to all nodes and branches
             nodes.forEach(node => node.y += offsetY + this.leafSpacing);

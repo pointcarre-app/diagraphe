@@ -1,4 +1,4 @@
-import { Axes, CalendarHeatmap, Circle, Dot, Function, Heatmap, Line, MathDot, ParametricCurve, ProbabilityTree, Rectangle } from './elements/index.js';
+import { Axes, CalendarHeatmap, Circle, Dot, Function, Heatmap, Line, CartesianDot, ParametricCurve, ProbabilityTree, Rectangle } from './elements/index.js';
 
 export class Diagraphe {
   /**
@@ -149,8 +149,8 @@ export class Diagraphe {
         case "axes":
           element = new Axes(elementConfig);
           break;
-        case "maths_dot":
-          element = new MathDot(elementConfig);
+        case "cartesian_dot":
+          element = new CartesianDot(elementConfig);
           break;
         case "function":
           element = new Function(elementConfig);

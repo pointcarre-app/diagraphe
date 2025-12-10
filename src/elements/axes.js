@@ -1,6 +1,6 @@
-import { MathElement } from './element.js';
+import { CartesianElement } from './element.js';
 
-export class Axes extends MathElement {
+export class Axes extends CartesianElement {
   /**
    * ... params of maths elements
    * @param {number} [options.arrowSize=6] - Arrow size
