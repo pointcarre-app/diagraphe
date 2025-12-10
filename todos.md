@@ -17,12 +17,17 @@
 
 ### Refactoring
 
-- [ ] finir refactoring
+
 - [ ] should heatmap and tree use basic_shapes ?
     - Ragarding this approach: I may tolerate redundancy of axes just because it would create a spaghetti
-
+- [ ] split render method of axes and tree between renderShape and renderLabel
 
 ### ABC
 
 - [ ] render label method
 - [x] rename Math* Cartesian*
+
+
+### Library
+
+- [ ] label for parametric curves

@@ -15,7 +15,14 @@ export class CartesianDot extends CartesianElement {
     this.radius = options.radius ?? 5;
   }
 
-  render() {
+  calculateLabelPosition() {
+    let x, y;
+    x = this.x + this.radius + this.labelOffset;
+    y = this.y + this.radius - this.labelOffset;
+    return { x, y };
+  }
+
+  renderShape() {
     const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
     circle.setAttribute("cx", this.x);
     circle.setAttribute("cy", this.y);
@@ -24,4 +31,6 @@ export class CartesianDot extends CartesianElement {
     circle.setAttribute("class", Array.isArray(this.classes) ? this.classes.join(" ") : classes);
     return circle;
   }
+
+
 }

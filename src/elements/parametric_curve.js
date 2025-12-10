@@ -41,7 +41,7 @@ export class ParametricCurve extends CartesianElement {
     this.fill = options.fill ?? "none";
   }
 
-  render() {
+  renderShape() {
     // Générer les points de la courbe
     const points = this.generatePoints();
 

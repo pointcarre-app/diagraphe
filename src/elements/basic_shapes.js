@@ -14,7 +14,14 @@ export class Rectangle extends Element {
     this.y = options.y ?? 0;
   }
 
-  render() {
+  calculateLabelPosition() {
+    let x, y;
+    x = this.x + this.width + this.labelOffset
+    y = this.y - this.labelOffset
+    return { x, y };
+  }
+
+  renderShape() {
     const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
     rect.setAttribute("x", this.x);
     rect.setAttribute("y", this.y);
@@ -45,7 +52,14 @@ export class Circle extends Element {
     this.y = options.y ?? 0;
   }
 
-  render() {
+  calculateLabelPosition() {
+    let x, y;
+    x = this.x + this.radius + this.labelOffset;
+    y = this.y + this.radius - this.labelOffset;
+    return { x, y };
+  }
+
+  renderShape() {
     const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
     circle.setAttribute("cx", this.x);
     circle.setAttribute("cy", this.y);
@@ -84,9 +98,7 @@ export class Line extends Element {
     
   }
 
-  render() {
-    // Créer un groupe pour contenir la ligne et le label
-    const group = document.createElementNS("http://www.w3.org/2000/svg", "g");
+  renderShape() {
 
     // Créer la ligne
     const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
@@ -98,36 +110,9 @@ export class Line extends Element {
     line.setAttribute("class", this.classes.join(" "));
     line.setAttribute("opacity", this.opacity)
     
-    group.appendChild(line);
-
-    // Ajouter le label si fourni
-    if (this.label) {
-      const text = this.createLabel();
-      group.appendChild(text);
-    }
-
-    return group;
+    return line;
   }
 
-  /**
-   * Create label element
-   * @returns {SVGTextElement}
-   */
-  createLabel() {
-    const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
-    
-    // Calculer la position du label
-    const { x, y } = this.calculateLabelPosition();
-    
-    text.setAttribute("x", x);
-    text.setAttribute("y", y);
-    text.setAttribute("class", this.labelClasses.join(" "));
-    text.setAttribute("font-size", this.labelFontSize);
-    text.setAttribute("text-anchor", this.labelAnchor);
-    text.textContent = this.label;
-    
-    return text;
-  }
 
   /**
    * Calculate label position based on line and configuration

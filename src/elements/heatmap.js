@@ -32,7 +32,7 @@ export class Heatmap extends Element {
     )
   }
 
-  render() {
+  renderShape() {
     const rows = this.data.length;
     const cols = this.data[0].length;
     const cellWidth = this.cellSize;

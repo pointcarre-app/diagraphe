@@ -58,6 +58,10 @@ export class Axes extends CartesianElement {
   }
 
   render() {
+
+    // TODO: split renderShape and renderLabel
+
+
     // Position SVG des axes (où x=0 et y=0 en coordonnées mathématiques)
     const axisYPosition = this.mathToSvgX(0);  // Position de l'axe Y (vertical)
     const axisXPosition = this.mathToSvgY(0);  // Position de l'axe X (horizontal)

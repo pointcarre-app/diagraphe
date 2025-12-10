@@ -62,8 +62,22 @@ export class Element {
     return text;
   }
 
-  render() {
+  renderShape() {
     throw new Error("Element is an abstract base class and cannot be instantiated directly. Use a concrete subclass like Rectangle.");
+  }
+
+  render() {
+    // Créer un groupe pour contenir la ligne et le label
+    const group = document.createElementNS("http://www.w3.org/2000/svg", "g");
+
+    const shape = this.renderShape()
+    group.appendChild(shape)
+    if (this.label) {
+      const text = this.renderLabel()
+      group.appendChild(text)
+    }
+
+    return group;
   }
 }
 
@@ -122,8 +136,4 @@ export class CartesianElement extends Element {
   }
 
 
-
-  render() {
-    throw new Error('MathElement is an abstract class and must be extended');
-  }
 }
