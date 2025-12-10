@@ -46,7 +46,6 @@ export class Circle extends Element {
   }
 
   render() {
-    console.log("radius", this.radius)
     const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
     circle.setAttribute("cx", this.x);
     circle.setAttribute("cy", this.y);
@@ -173,32 +172,3 @@ export class Line extends Element {
   }
 }
 
-
-////////////////////////////////////
-//////////// MATHS
-
-export class Dot extends CartesianElement {
-  /**
-   * @param {Object} options - Rectangle configuration
-   * @param {Array<string>} options.classes - CSS classes for the element
-   * @param {number} - Element x position (center)
-   * @param {number} - Element y position (center)
-   * @param {number} options.radius - Element radius
-   */
-  constructor(options) {
-    super(options);
-    this.x = options.x ;
-    this.y = options.y ;
-    this.radius = options.radius ?? 5;
-  }
-
-  render() {
-    const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-    circle.setAttribute("cx", this.x);
-    circle.setAttribute("cy", this.y);
-    circle.setAttribute("r", this.radius);
-    circle.setAttribute("opacity", this.opacity)
-    circle.setAttribute("class", Array.isArray(this.classes) ? this.classes.join(" ") : classes);
-    return circle;
-  }
-}

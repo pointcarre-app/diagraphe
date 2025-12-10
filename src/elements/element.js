@@ -27,6 +27,41 @@ export class Element {
     this.labelAnchor = options.labelAnchor ?? "middle";
   } 
 
+  /**
+   * Calculate label position (default: centered on element)
+   * Override in subclasses for custom positioning
+   * @returns {{x: number, y: number}}
+   */
+  calculateLabelPosition() {
+    // Default: use element's x, y if available
+    return {
+      x: this.x ?? 0,
+      y: this.y ?? 0
+    };
+  }
+
+  /**
+   * Render a text label element
+   * Uses calculateLabelPosition() for positioning
+   * @returns {SVGTextElement|null}
+   */
+  renderLabel() {
+    if (!this.label) return null;
+    
+    const { x, y } = this.calculateLabelPosition();
+    
+    const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
+    text.setAttribute("x", x);
+    text.setAttribute("y", y);
+    text.setAttribute("class", Array.isArray(this.labelClasses) ? this.labelClasses.join(" ") : this.labelClasses || "fill-base-content");
+    text.setAttribute("font-size", this.labelFontSize ?? 12);
+    text.setAttribute("text-anchor", this.labelAnchor ?? "middle");
+    text.setAttribute("dominant-baseline", this.labelBaseline ?? "middle");
+    text.textContent = this.label;
+    
+    return text;
+  }
+
   render() {
     throw new Error("Element is an abstract base class and cannot be instantiated directly. Use a concrete subclass like Rectangle.");
   }

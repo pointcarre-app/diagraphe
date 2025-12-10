@@ -1,4 +1,4 @@
-import { Axes, CalendarHeatmap, Circle, Dot, Function, Heatmap, Line, CartesianDot, ParametricCurve, ProbabilityTree, Rectangle } from './elements/index.js';
+import { Axes, CalendarHeatmap, Circle, Function, Heatmap, Line, CartesianDot, ParametricCurve, ProbabilityTree, Rectangle } from './elements/index.js';
 
 export class Diagraphe {
   /**
