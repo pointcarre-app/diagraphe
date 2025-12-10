@@ -68,12 +68,6 @@ export class Line extends Element {
    * @param {number} options.x2 - End X coordinate
    * @param {number} options.y2 - End Y coordinate
    * @param {number} [options.strokeWidth=1] - Line stroke width
-   * @param {string} [options.label] - Optional label text
-   * @param {Array<string>} [options.labelClasses] - CSS classes for label
-   * @param {number} [options.labelFontSize=12] - Font size for label
-   * @param {number} [options.labelOffset=10] - Distance from line to label
-   * @param {string} [options.labelPosition="middle"] - Label position: "middle", "start", "end"
-   * @param {string} [options.labelAnchor="middle"] - Text anchor: "start", "middle", "end"
    */
   constructor(options) {
     super(options);
@@ -89,13 +83,6 @@ export class Line extends Element {
     this.y2 = options.y2;
     this.strokeWidth = options.strokeWidth ?? 1;
     
-    // Label configuration
-    this.label = options.label ?? null;
-    this.labelClasses = options.labelClasses ?? ["fill-base-content"];
-    this.labelFontSize = options.labelFontSize ?? 12;
-    this.labelOffset = options.labelOffset ?? 10;
-    this.labelPosition = options.labelPosition ?? "middle";
-    this.labelAnchor = options.labelAnchor ?? "middle";
   }
 
   render() {
@@ -190,8 +177,33 @@ export class Line extends Element {
 ////////////////////////////////////
 //////////// MATHS
 
-
 export class Dot extends MathElement {
+  /**
+   * @param {Object} options - Rectangle configuration
+   * @param {Array<string>} options.classes - CSS classes for the element
+   * @param {number} - Element x position (center)
+   * @param {number} - Element y position (center)
+   * @param {number} options.radius - Element radius
+   */
+  constructor(options) {
+    super(options);
+    this.x = options.x ;
+    this.y = options.y ;
+    this.radius = options.radius ?? 5;
+  }
+
+  render() {
+    const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+    circle.setAttribute("cx", this.x);
+    circle.setAttribute("cy", this.y);
+    circle.setAttribute("r", this.radius);
+    circle.setAttribute("opacity", this.opacity)
+    circle.setAttribute("class", Array.isArray(this.classes) ? this.classes.join(" ") : classes);
+    return circle;
+  }
+}
+
+export class MathDot extends MathElement {
   /**
    * @param {Object} options - Rectangle configuration
    * @param {Array<string>} options.classes - CSS classes for the element
@@ -206,8 +218,6 @@ export class Dot extends MathElement {
     this.y = this.mathToSvgY(options.y) ;
     this.radius = options.radius ?? 5;
   }
-
-  // TODO label
 
   render() {
     const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");

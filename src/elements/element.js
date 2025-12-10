@@ -2,13 +2,29 @@ export class Element {
   /**
    * @param {Object} options - Element configuration
    * @param {Array<string>} options.classes - CSS classes for the element
-   */
+   * @param {string} options.opacity
+   * @param {string} options.label
+   * @param {Array<string>} [options.labelClasses] - CSS classes for label
+   * @param {number} [options.labelFontSize=12] - Font size for label
+   * @param {number} [options.labelOffset=10] - Distance from line to label
+   * @param {string} [options.labelPosition="middle"] - Label position: "middle", "start", "end"
+   * @param {string} [options.labelAnchor="middle"] - Text anchor: "start", "middle", "end"
+
+  */
   constructor(options) {
     // Handle classes as either string or array
     this.classes = Array.isArray(options.classes)
       ? options.classes
       : [options.classes];
     this.opacity = options.opacity ?? 100
+    
+    // Label configuration
+    this.label = options.label ?? null
+    this.labelClasses = options.labelClasses ?? ["fill-base-content"];
+    this.labelFontSize = options.labelFontSize ?? 12;
+    this.labelOffset = options.labelOffset ?? 10;
+    this.labelPosition = options.labelPosition ?? "middle";
+    this.labelAnchor = options.labelAnchor ?? "middle";
   } 
 
   render() {

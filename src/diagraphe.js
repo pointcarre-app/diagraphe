@@ -1,4 +1,4 @@
-import { Axes, Circle, Dot, Function, Heatmap, Line, CalendarHeatmap, Rectangle, ParametricCurve } from './elements/index.js';
+import { Axes, CalendarHeatmap, Circle, Dot, Function, Heatmap, Line, MathDot, ParametricCurve, ProbabilityTree, Rectangle } from './elements/index.js';
 
 export class Diagraphe {
   /**
@@ -149,14 +149,17 @@ export class Diagraphe {
         case "axes":
           element = new Axes(elementConfig);
           break;
-        case "dot":
-          element = new Dot(elementConfig);
+        case "maths_dot":
+          element = new MathDot(elementConfig);
           break;
         case "function":
           element = new Function(elementConfig);
           break;
         case "parametric_curve":
           element = new ParametricCurve(elementConfig);
+          break;
+        case "probability_tree":
+          element = new ProbabilityTree(elementConfig);
           break;
         default:
           throw new Error(`Unknown element nature: ${nature}`);
