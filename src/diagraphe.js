@@ -1,4 +1,4 @@
-import { Axes, CalendarHeatmap, Circle, Function, Heatmap, Line, CartesianDot, ParametricCurve, ProbabilityTree, Rectangle } from './elements/index.js';
+import { Axes, CalendarHeatmap, Circle, ForeignObject, Function, Heatmap, Line, CartesianDot, ParametricCurve, ProbabilityTree, Rectangle } from './elements/index.js';
 
 export class Diagraphe {
   /**
@@ -160,6 +160,9 @@ export class Diagraphe {
           break;
         case "probability_tree":
           element = new ProbabilityTree(elementConfig);
+          break;
+        case "foreign_object":
+          element = new ForeignObject(elementConfig);
           break;
         default:
           throw new Error(`Unknown element nature: ${nature}`);

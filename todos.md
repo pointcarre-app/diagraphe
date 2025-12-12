@@ -9,6 +9,14 @@
 
 - [ ] "type" every argument of every constructor
 
+
+
+
+## 🧂 to 🔌 
+
+- showAxisLabels / showTickLabels -> showXLabels / showYLabels
+- add labelClass when there is a label (dots?)
+
 ## Refactoring
 
 - [ ] Centralize dependencies
