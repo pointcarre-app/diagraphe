@@ -104,8 +104,8 @@
                 }, {
                     // Y-axis label: y
                     nature: 'foreign_object',
-                    x: 138,
-                    y: 10,
+                    x: 137,
+                    y: 5,
                     centered: true,
                     html: '<div data-diagraphe-latex="true" class="">$y$</div>'
                 }, ]
@@ -125,8 +125,8 @@
                     yMin: -2,
                     yMax: 4,
                     grid: true,
-                    showAxisLabels: true,
-                    showTickLabels: true,
+                    showAxisLabels: false,
+                    showTickLabels: false,
                     xTicks: [...Array(10).keys()].map(i => i - 3),
                     yTicks: [...Array(6).keys()].map(i => i - 2),
                 }, {
@@ -138,6 +138,32 @@
                     yMin: -2,
                     yMax: 4,
                     tMax: 6,
+                }, {
+                    nature: 'foreign_object',
+                    x: 128,
+                    y: 140,
+                    centered: true,
+                    html: '<div data-diagraphe-latex="true" class="text-sm font-bold">$1$</div>'
+                }, {
+                    nature: 'foreign_object',
+                    x: 84,
+                    y: 94,
+                    centered: true,
+                    html: '<div data-diagraphe-latex="true" class="text-sm font-bold">$1$</div>'
+                }, {
+                    // X-axis label: x
+                    nature: 'foreign_object',
+                    x: 308,
+                    y: 135,
+                    centered: true,
+                    html: '<div data-diagraphe-latex="true">$x$</div>'
+                }, {
+                    // Y-axis label: y
+                    nature: 'foreign_object',
+                    x: 107,
+                    y: 8,
+                    centered: true,
+                    html: '<div data-diagraphe-latex="true">$y$</div>'
                 }, ]
             }
         }, {
@@ -152,7 +178,8 @@
                     xMax: 5,
                     yMin: -10,
                     yMax: 15,
-                    showTickLabels: true,
+                    showTickLabels: false,
+                    showAxisLabels: false,
                     xTicks: [0]
                 }, {
                     nature: 'function',
@@ -164,7 +191,27 @@
                     yMax: 15,
                     tMin: -3.8,
                     tMax: 3.8,
-
+                }, {
+                    // Origin label: O
+                    nature: 'foreign_object',
+                    x: 135,
+                    y: 163,
+                    centered: true,
+                    html: '<div data-diagraphe-latex="true">$0$</div>'
+                }, {
+                    // X-axis label: x
+                    nature: 'foreign_object',
+                    x: 243,
+                    y: 163,
+                    centered: true,
+                    html: '<div data-diagraphe-latex="true">$x$</div>'
+                }, {
+                    // Y-axis label: y
+                    nature: 'foreign_object',
+                    x: 135,
+                    y: 5,
+                    centered: true,
+                    html: '<div data-diagraphe-latex="true">$y$</div>'
                 }, ]
             }
         }, {
@@ -192,7 +239,7 @@
                         tMin: -3.3,
                     }, {
                         nature: 'cartesian_dot',
-                        classes: ['fill-secondary'],
+                        classes: ['fill-primary'],
                         x: -3,
                         xMin: -4,
                         xMax: 4,
@@ -201,7 +248,7 @@
                         y: 0.1 * (-3 + 2) * (-3 - 1) * (-3 - 3),
                     }, {
                         nature: 'cartesian_dot',
-                        classes: ['fill-secondary'],
+                        classes: ['fill-primary'],
                         x: -1.5,
                         y: 0.1 * (-1.5 + 2) * (-1.5 - 1) * (-1.5 - 3),
                         xMin: -4,
@@ -210,7 +257,7 @@
                         yMax: 4,
                     }, {
                         nature: 'cartesian_dot',
-                        classes: ['fill-secondary'],
+                        classes: ['fill-primary'],
                         x: 0.25,
                         y: 0.1 * (0.25 + 2) * (0.25 - 1) * (0.25 - 3),
                         xMin: -4,
@@ -219,13 +266,41 @@
                         yMax: 4,
                     }, {
                         nature: 'cartesian_dot',
-                        classes: ['fill-secondary'],
+                        classes: ['fill-primary'],
                         x: 2.75,
                         y: 0.1 * (2.75 + 2) * (2.75 - 1) * (2.75 - 3),
                         xMin: -4,
                         xMax: 4,
                         yMin: -4,
                         yMax: 4,
+                    }, {
+                        // Label A for dot at x=-3
+                        nature: 'foreign_object',
+                        x: 15,
+                        y: 200,
+                        centered: true,
+                        html: '<div data-diagraphe-latex="true" class="text-primary">$A$</div>'
+                    }, {
+                        // Label B for dot at x=-1.5
+                        nature: 'foreign_object',
+                        x: 63,
+                        y: 103,
+                        centered: true,
+                        html: '<div data-diagraphe-latex="true" class="text-primary">$B$</div>'
+                    }, {
+                        // Label R for dot at x=0.25
+                        nature: 'foreign_object',
+                        x: 135,
+                        y: 95,
+                        centered: true,
+                        html: '<div data-diagraphe-latex="true" class="text-primary">$R$</div>'
+                    }, {
+                        // Label S for dot at x=2.75
+                        nature: 'foreign_object',
+                        x: 223,
+                        y: 140,
+                        centered: true,
+                        html: '<div data-diagraphe-latex="true" class="text-primary">$S$</div>'
                     },
 
                 ]
