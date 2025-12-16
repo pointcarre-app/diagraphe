@@ -5,6 +5,22 @@ All notable changes to **Diagraphe** will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/SemVer).
 
+## [v0.0.3] - 2025-12-16
+
+### 🎨 **Demo Refinements**
+
+#### **Changed**
+- **KaTeX Demo Configurations** (`scenery/_sujets0_katex_demos.js`): Updated all demo configurations
+  - Set all margins to 0 for edge-to-edge rendering
+  - Adjusted all `foreign_object` positions for Safari compatibility
+  - Refined label placements for better visual alignment
+  - Added origin label ($0$) to Spé sujet 1 Q11
+
+#### **Fixed**
+- **Safari Compatibility**: Positioned all foreign objects within visible bounds (avoiding negative y-coordinates where possible)
+
+---
+
 ## [v0.0.2] - 2025-12-16
 
 ### 🌐 **CDN Testing & Distribution**

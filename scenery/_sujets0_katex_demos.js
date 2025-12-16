@@ -10,10 +10,10 @@ export const sujets0KatexDemos = [
             width: 300,
             height: 300,
             margin: {
-                top: 25,
-                right: 25,
-                bottom: 25,
-                left: 25
+                top: 0,
+                right: 0,
+                bottom: 0,
+                left: 0
             },
             svg: {
                 classes: ['bg-base-100 border-base-content/10 border-1 brc'],
@@ -43,29 +43,29 @@ export const sujets0KatexDemos = [
             }, {
                 // Origin label: 0
                 nature: 'foreign_object',
-                x: 135,
-                y: 240,
+                x: 160,
+                y: 285,
                 centered: true,
                 html: '<div data-diagraphe-latex="true" class="">$0$</div>'
             }, {
                 // Y-axis tick label: 10
                 nature: 'foreign_object',
-                x: 140,
-                y: 115,
+                x: 165,
+                y: 137,
                 centered: true,
                 html: '<div data-diagraphe-latex="true" class="">$10$</div>'
             }, {
                 // X-axis label: x
                 nature: 'foreign_object',
-                x: 245,
-                y: 240,
+                x: 290,
+                y: 285,
                 centered: true,
                 html: '<div data-diagraphe-latex="true" class="">$x$</div>'
             }, {
                 // Y-axis label: y
                 nature: 'foreign_object',
-                x: 137,
-                y: 5,
+                x: 165,
+                y: 10,
                 centered: true,
                 html: '<div data-diagraphe-latex="true" class="">$y$</div>'
             }, ]
@@ -74,13 +74,11 @@ export const sujets0KatexDemos = [
         label: 'Spé sujet 1 Q8',
         description: 'Tryin',
         config: {
-            width: 300,
-            height: 300,
             margin: {
-                top: 25,
-                right: 25,
-                bottom: 25,
-                left: 25
+                top: 0,
+                right: 0,
+                bottom: 0,
+                left: 0
             },
             svg: {
                 classes: ['bg-base-100 border-base-content/10 border-1 brc'],
@@ -110,36 +108,36 @@ export const sujets0KatexDemos = [
                     tMax: 6,
                 }, {
                     nature: 'foreign_object',
-                    x: 128,
-                    y: 140,
+                    x: 98,
+                    y: 117,
                     centered: true,
                     html: '<div data-diagraphe-latex="true" class="text-sm font-bold">$1$</div>'
                 }, {
                     nature: 'foreign_object',
-                    x: 84,
-                    y: 94,
+                    x: 146,
+                    y: 170,
                     centered: true,
                     html: '<div data-diagraphe-latex="true" class="text-sm font-bold">$1$</div>'
                 }, {
                     // X-axis label: x
                     nature: 'foreign_object',
-                    x: 308,
-                    y: 135,
+                    x: 355,
+                    y: 170,
                     centered: true,
                     html: '<div data-diagraphe-latex="true">$x$</div>'
                 }, {
                     // Y-axis label: y
                     nature: 'foreign_object',
-                    x: 107,
-                    y: 8,
+                    x: 125,
+                    y: 10,
                     centered: true,
                     html: '<div data-diagraphe-latex="true">$y$</div>'
                 },
 
                 {
                     nature: 'foreign_object',
-                    x: 170,
-                    y: 90,
+                    x: 160,
+                    y: 95,
                     centered: true,
                     html: '<div data-diagraphe-latex="true" class="text-primary">$\\mathcal{D}$</div>'
                 }
@@ -152,10 +150,10 @@ export const sujets0KatexDemos = [
             width: 300,
             height: 300,
             margin: {
-                top: 25,
-                right: 25,
-                bottom: 25,
-                left: 25
+                top: 0,
+                right: 0,
+                bottom: 0,
+                left: 0
             },
             svg: {
                 classes: ['bg-base-100 border-base-content/10 border-1 brc'],
@@ -183,28 +181,28 @@ export const sujets0KatexDemos = [
             }, {
                 // Origin label: O
                 nature: 'foreign_object',
-                x: 135,
-                y: 163,
+                x: 165,
+                y: 195,
                 centered: true,
                 html: '<div data-diagraphe-latex="true">$0$</div>'
             }, {
                 // X-axis label: x
                 nature: 'foreign_object',
-                x: 245,
-                y: 163,
+                x: 290,
+                y: 192,
                 centered: true,
                 html: '<div data-diagraphe-latex="true">$x$</div>'
             }, {
                 // Y-axis label: y
                 nature: 'foreign_object',
-                x: 137,
-                y: 5,
+                x: 112,
+                y: -20,
                 centered: true,
                 html: '<div data-diagraphe-latex="true">$y$</div>'
             }, {
                 nature: 'foreign_object',
-                x: 175,
-                y: 75,
+                x: 195,
+                y: 80,
                 centered: true,
                 html: '<div data-diagraphe-latex="true" class="text-primary">$\\mathcal{P}$</div>'
             }, ]
@@ -216,10 +214,10 @@ export const sujets0KatexDemos = [
             width: 300,
             height: 300,
             margin: {
-                top: 25,
-                right: 25,
-                bottom: 25,
-                left: 25
+                top: 0,
+                right: 0,
+                bottom: 0,
+                left: 0
             },
             svg: {
                 classes: ['bg-base-100 border-base-content/10 border-1 brc'],
@@ -232,7 +230,7 @@ export const sujets0KatexDemos = [
                     yMin: -4,
                     yMax: 4,
                     showTickLabels: true,
-                    xTicks: [0]
+                    xTicks: [],
                 }, {
                     nature: 'function',
                     classes: ['stroke-primary'],
@@ -281,45 +279,52 @@ export const sujets0KatexDemos = [
                 }, {
                     // Label A for dot at x=-3
                     nature: 'foreign_object',
-                    x: 15,
-                    y: 200,
+                    x: 20,
+                    y: 240,
                     centered: true,
                     html: '<div data-diagraphe-latex="true" class="text-primary">$A$</div>'
                 }, {
                     // Label B for dot at x=-1.5
                     nature: 'foreign_object',
-                    x: 63,
-                    y: 103,
+                    x: 80,
+                    y: 125,
                     centered: true,
                     html: '<div data-diagraphe-latex="true" class="text-primary">$B$</div>'
                 }, {
                     // Label R for dot at x=0.25
                     nature: 'foreign_object',
-                    x: 135,
-                    y: 95,
+                    x: 160,
+                    y: 115,
                     centered: true,
                     html: '<div data-diagraphe-latex="true" class="text-primary">$R$</div>'
                 }, {
                     // Label S for dot at x=2.75
                     nature: 'foreign_object',
-                    x: 223,
-                    y: 140,
+                    x: 255,
+                    y: 135,
                     centered: true,
                     html: '<div data-diagraphe-latex="true" class="text-primary">$S$</div>'
                 }, {
                     // X-axis label: x
                     nature: 'foreign_object',
-                    x: 250,
-                    y: 140,
+                    x: 290,
+                    y: 165,
                     centered: true,
                     html: '<div data-diagraphe-latex="true">$x$</div>'
                 }, {
                     // Y-axis label: y
                     nature: 'foreign_object',
-                    x: 138,
-                    y: 5,
+                    x: 165,
+                    y: 10,
                     centered: true,
                     html: '<div data-diagraphe-latex="true">$y$</div>'
+                },
+                {
+                    nature: 'foreign_object',
+                    x: 162,
+                    y: 162,
+                    centered: true,
+                    html: '<div data-diagraphe-latex="true">$0$</div>'
                 },
 
             ]
@@ -331,16 +336,13 @@ export const sujets0KatexDemos = [
             width: 300,
             height: 300,
             margin: {
-                top: 25,
-                right: 25,
-                bottom: 25,
-                left: 25
+                top: 0,
+                right: 0,
+                bottom: 0,
+                left: 0
             },
             svg: {
                 classes: ['bg-base-100 border-base-content/10 border-1 brc'],
-            },
-            margin: {
-                left: 0,
             },
             elements: [{
                 nature: 'probability_tree',
@@ -382,10 +384,10 @@ export const sujets0KatexDemos = [
             width: 300,
             height: 300,
             margin: {
-                top: 25,
-                right: 25,
-                bottom: 25,
-                left: 25
+                top: 0,
+                right: 0,
+                bottom: 0,
+                left: 0
             },
             svg: {
                 classes: ['bg-base-100 border-base-content/10 border-1 brc'],
