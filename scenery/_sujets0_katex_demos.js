@@ -195,8 +195,8 @@ export const sujets0KatexDemos = [
             }, {
                 // Y-axis label: y
                 nature: 'foreign_object',
-                x: 112,
-                y: -20,
+                x: 168,
+                y: 10,
                 centered: true,
                 html: '<div data-diagraphe-latex="true">$y$</div>'
             }, {
