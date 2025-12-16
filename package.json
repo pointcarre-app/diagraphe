@@ -1,0 +1,41 @@
+{
+  "name": "diagraphe",
+  "version": "0.0.1",
+  "description": "A modern, modular SVG graphing library built with ES6 modules for creating mathematical visualizations and interactive diagrams",
+  "main": "src/diagraphe.js",
+  "type": "module",
+  "files": [
+    "src/",
+    "scenery/",
+    "dependencies/",
+    "CHANGELOG.md",
+    "README.md"
+  ],
+  "keywords": [
+    "svg",
+    "graphing",
+    "mathematics",
+    "visualization",
+    "charts",
+    "katex",
+    "daisyui",
+    "es6-modules"
+  ],
+  "author": "PointCarré",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pointcarre-app/diagraphe.git"
+  },
+  "bugs": {
+    "url": "https://github.com/pointcarre-app/diagraphe/issues"
+  },
+  "homepage": "https://pointcarre-app.github.io/diagraphe/",
+  "scripts": {
+    "serve": "python3 serve.py",
+    "test": "python3 serve.py"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
