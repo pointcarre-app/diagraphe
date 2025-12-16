@@ -5,22 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Diagraphe CDN Test - v0.0.1</title>
 
-    <!-- CSS Dependencies from CDN -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/diagraphe@0.0.1/dependencies/google_fonts.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/diagraphe@0.0.1/dependencies/open_dyslexic_regular.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/diagraphe@0.0.1/dependencies/daisyui@5.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/diagraphe@0.0.1/dependencies/daisyui@5themes.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/diagraphe@0.0.1/dependencies/katex.css" />
-    <script src="https://cdn.jsdelivr.net/npm/diagraphe@0.0.1/dependencies/katex.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/diagraphe@0.0.1/dependencies/katex-autorender.js"></script>
+    <!-- CSS Dependencies from jsDelivr GitHub CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/pointcarre-app/diagraphe@v0.0.1/dependencies/google_fonts.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/pointcarre-app/diagraphe@v0.0.1/dependencies/open_dyslexic_regular.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/pointcarre-app/diagraphe@v0.0.1/dependencies/daisyui@5.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/pointcarre-app/diagraphe@v0.0.1/dependencies/daisyui@5themes.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/pointcarre-app/diagraphe@v0.0.1/dependencies/katex.css" />
+    <script src="https://cdn.jsdelivr.net/gh/pointcarre-app/diagraphe@v0.0.1/dependencies/katex.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/pointcarre-app/diagraphe@v0.0.1/dependencies/katex-autorender.js"></script>
 
-    <!-- Our CSS from CDN -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/diagraphe@0.0.1/src/css/root.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/diagraphe@0.0.1/src/css/daisyui-svg-theming.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/diagraphe@0.0.1/src/css/global.css" />
+    <!-- Our CSS from jsDelivr GitHub CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/pointcarre-app/diagraphe@v0.0.1/src/css/root.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/pointcarre-app/diagraphe@v0.0.1/src/css/daisyui-svg-theming.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/pointcarre-app/diagraphe@v0.0.1/src/css/global.css" />
 
-    <!-- JavaScript Dependencies from CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/diagraphe@0.0.1/dependencies/tailwindcssbrowser@4.js"></script>
+    <!-- JavaScript Dependencies from jsDelivr GitHub CDN -->
+    <script src="https://cdn.jsdelivr.net/gh/pointcarre-app/diagraphe@v0.0.1/dependencies/tailwindcssbrowser@4.js"></script>
 
     <style>
         foreignObject [data-diagraphe-latex="true"] {
@@ -28,14 +28,14 @@
         }
     </style>
 
-    <!-- Diagraphe Module from CDN -->
+    <!-- Diagraphe Module from jsDelivr GitHub CDN -->
     <script type="module">
         import {
             Diagraphe
-        } from 'https://cdn.jsdelivr.net/npm/diagraphe@0.0.1/src/diagraphe.js';
+        } from 'https://cdn.jsdelivr.net/gh/pointcarre-app/diagraphe@v0.0.1/src/diagraphe.js';
         import {
             sujets0KatexDemos
-        } from 'https://cdn.jsdelivr.net/npm/diagraphe@0.0.1/scenery/_sujets0_katex_demos.js';
+        } from 'https://cdn.jsdelivr.net/gh/pointcarre-app/diagraphe@v0.0.1/scenery/_sujets0_katex_demos.js';
 
         // Make Diagraphe available globally for the non-module script
         window.Diagraphe = Diagraphe;
@@ -84,8 +84,8 @@
       <div class="alert alert-info mb-4">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="stroke-current shrink-0 w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
         <div>
-          <h3 class="font-bold">CDN Test Page</h3>
-          <div class="text-xs">Loading Diagraphe v0.0.1 from jsDelivr CDN</div>
+          <h3 class="font-bold">jsDelivr GitHub CDN Test Page</h3>
+          <div class="text-xs">Loading Diagraphe v0.0.1 from <code>cdn.jsdelivr.net/gh/</code></div>
         </div>
       </div>
 
