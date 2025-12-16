@@ -62,6 +62,7 @@
                 elements: [{
                     nature: 'axes',
                     classes: ['fill-secondary'],
+                    // grid: true, sujet 0 doesnt have grid for this one
                     xMin: -5,
                     xMax: 5,
                     yMin: -2,
@@ -118,53 +119,62 @@
                 width: 550 / 1.5,
                 height: 350 / 1.5,
                 elements: [{
-                    nature: 'axes',
-                    classes: ['fill-secondary'],
-                    xMin: -3,
-                    xMax: 7,
-                    yMin: -2,
-                    yMax: 4,
-                    grid: true,
-                    showAxisLabels: false,
-                    showTickLabels: false,
-                    xTicks: [...Array(10).keys()].map(i => i - 3),
-                    yTicks: [...Array(6).keys()].map(i => i - 2),
-                }, {
-                    nature: 'function',
-                    classes: ['stroke-primary'],
-                    f: (x) => (-2 / 3) * x + 2,
-                    xMin: -3,
-                    xMax: 7,
-                    yMin: -2,
-                    yMax: 4,
-                    tMax: 6,
-                }, {
-                    nature: 'foreign_object',
-                    x: 128,
-                    y: 140,
-                    centered: true,
-                    html: '<div data-diagraphe-latex="true" class="text-sm font-bold">$1$</div>'
-                }, {
-                    nature: 'foreign_object',
-                    x: 84,
-                    y: 94,
-                    centered: true,
-                    html: '<div data-diagraphe-latex="true" class="text-sm font-bold">$1$</div>'
-                }, {
-                    // X-axis label: x
-                    nature: 'foreign_object',
-                    x: 308,
-                    y: 135,
-                    centered: true,
-                    html: '<div data-diagraphe-latex="true">$x$</div>'
-                }, {
-                    // Y-axis label: y
-                    nature: 'foreign_object',
-                    x: 107,
-                    y: 8,
-                    centered: true,
-                    html: '<div data-diagraphe-latex="true">$y$</div>'
-                }, ]
+                        nature: 'axes',
+                        classes: ['fill-secondary'],
+                        xMin: -3,
+                        xMax: 7,
+                        yMin: -2,
+                        yMax: 4,
+                        grid: true,
+                        showAxisLabels: false,
+                        showTickLabels: false,
+                        xTicks: [...Array(10).keys()].map(i => i - 3),
+                        yTicks: [...Array(6).keys()].map(i => i - 2),
+                    }, {
+                        nature: 'function',
+                        classes: ['stroke-primary'],
+                        f: (x) => (-2 / 3) * x + 2,
+                        xMin: -3,
+                        xMax: 7,
+                        yMin: -2,
+                        yMax: 4,
+                        tMax: 6,
+                    }, {
+                        nature: 'foreign_object',
+                        x: 128,
+                        y: 140,
+                        centered: true,
+                        html: '<div data-diagraphe-latex="true" class="text-sm font-bold">$1$</div>'
+                    }, {
+                        nature: 'foreign_object',
+                        x: 84,
+                        y: 94,
+                        centered: true,
+                        html: '<div data-diagraphe-latex="true" class="text-sm font-bold">$1$</div>'
+                    }, {
+                        // X-axis label: x
+                        nature: 'foreign_object',
+                        x: 308,
+                        y: 135,
+                        centered: true,
+                        html: '<div data-diagraphe-latex="true">$x$</div>'
+                    }, {
+                        // Y-axis label: y
+                        nature: 'foreign_object',
+                        x: 107,
+                        y: 8,
+                        centered: true,
+                        html: '<div data-diagraphe-latex="true">$y$</div>'
+                    },
+
+                    {
+                        nature: 'foreign_object',
+                        x: 20,
+                        y: 8,
+                        centered: true,
+                        html: '<div data-diagraphe-latex="true">$\\mathcal{D}$</div>'
+                    }
+                ]
             }
         }, {
             label: 'Spé sujet 1 Q11',
