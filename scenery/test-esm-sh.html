@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="anchor">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Diagraphe esm.sh CDN Test - v0.0.2</title>
+
+    <!-- CSS Dependencies from GitHub via jsDelivr (esm.sh doesn't serve static assets well due to COEP) -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/gh/pointcarre-app/diagraphe@v0.0.2/dependencies/google_fonts.css" />
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/gh/pointcarre-app/diagraphe@v0.0.2/dependencies/open_dyslexic_regular.css" />
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/gh/pointcarre-app/diagraphe@v0.0.2/dependencies/daisyui@5.css" />
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/gh/pointcarre-app/diagraphe@v0.0.2/dependencies/daisyui@5themes.css" />
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/gh/pointcarre-app/diagraphe@v0.0.2/dependencies/katex.css" />
+    <script src="https://cdn.jsdelivr.net/gh/pointcarre-app/diagraphe@v0.0.2/dependencies/katex.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/pointcarre-app/diagraphe@v0.0.2/dependencies/katex-autorender.js"></script>
+
+    <!-- Our CSS from GitHub via jsDelivr -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/gh/pointcarre-app/diagraphe@v0.0.2/src/css/root.css" />
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/gh/pointcarre-app/diagraphe@v0.0.2/src/css/daisyui-svg-theming.css" />
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/gh/pointcarre-app/diagraphe@v0.0.2/src/css/global.css" />
+
+    <!-- JavaScript Dependencies from GitHub via jsDelivr -->
+    <script src="https://cdn.jsdelivr.net/gh/pointcarre-app/diagraphe@v0.0.2/dependencies/tailwindcssbrowser@4.js"></script>
+
+    <style>
+        foreignObject [data-diagraphe-latex="true"] {
+            overflow: visible;
+        }
+    </style>
+
+    <!-- Diagraphe ES Modules from GitHub via esm.sh (this is what esm.sh is designed for) -->
+    <script type="module">
+        import {
+            Diagraphe
+        } from 'https://esm.sh/gh/pointcarre-app/diagraphe@v0.0.2/src/diagraphe.js';
+        import {
+            sujets0KatexDemos
+        } from 'https://esm.sh/gh/pointcarre-app/diagraphe@v0.0.2/scenery/_sujets0_katex_demos.js';
+
+        // Make Diagraphe available globally for the non-module script
+        window.Diagraphe = Diagraphe;
+        window.sujets0KatexDemos = sujets0KatexDemos;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const grid = document.querySelector('#grid');
+            grid.innerHTML = '';
+
+            sujets0KatexDemos.forEach((demo, index) => {
+                const card = document.createElement('div');
+                card.className = 'card bg-base-100 shadow-xl';
+                card.setAttribute('data-demo-id', `demo-${index}`);
+
+                // Build config display string
+                const configStr = JSON.stringify(demo.config, null, 2)
+                    .replace(/"([^"]+)":/g, '$1:'); // Remove quotes from keys
+
+                card.innerHTML = `
+                    <div class="card-body">
+                        <h3 class="card-title text-sm">${demo.label}</h3>
+                        <p class="text-xs text-base-content/60">${demo.description}</p>
+                        <div class="graph-demo my-2"></div>
+                        <details class="collapse collapse-arrow bg-base-200">
+                            <summary class="collapse-title text-xs font-medium py-2 min-h-0">Config</summary>
+                            <div class="collapse-content">
+                                <pre class="text-xs overflow-x-auto"><code>${configStr}</code></pre>
+                            </div>
+                        </details>
+                    </div>
+                `;
+
+                grid.appendChild(card);
+
+                new Diagraphe({
+                    container: card.querySelector('.graph-demo'),
+                    ...demo.config
+                });
+            });
+        });
+    </script>
+
+  </head>
+  <body>
+    <main id="main" class="container mx-auto p-4">
+      <div class="alert alert-warning mb-4">
+        <svg xmlns="http://www.w3.org/2000/svg"
+             fill="none"
+             viewBox="0 0 24 24"
+             class="stroke-current shrink-0 w-6 h-6">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z">
+          </path>
+        </svg>
+        <div>
+          <h3 class="font-bold">esm.sh CDN Test Page (Hybrid)</h3>
+          <div class="text-xs">
+            ES modules from esm.sh/gh/ • Static assets (CSS/JS) from jsDelivr (esm.sh COEP blocks static files)
+          </div>
+        </div>
+      </div>
+
+      <div id="grid" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+    </main>
+  </body>
+
+  <script>
+      document.addEventListener('DOMContentLoaded', () => {
+          // Only render math in elements with data-diagraphe-latex="true"
+          const mathElements = document.querySelectorAll('[data-diagraphe-latex="true"]');
+
+          mathElements.forEach(element => {
+              renderMathInElement(element, {
+                  // Only render $$ (display) and $ (inline) delimiters
+                  delimiters: [{
+                          left: "$$",
+                          right: "$$",
+                          display: true
+                      }, // Display math: $$
+                      {
+                          left: "$",
+                          right: "$",
+                          display: false
+                      } // Inline math: $
+                  ],
+
+                  // Safe and common options
+                  throwOnError: false, // Don't throw errors, show them instead
+                  errorColor: "#cc0000", // Red color for math errors
+                  trust: false, // Don't trust user input (safer)
+                  strict: "ignore", // Ignore strict mode violations
+                  maxSize: Infinity, // Allow unlimited size
+                  maxExpand: 1000, // Max expansion depth
+                  colorIsTextColor: false, // Don't treat colors as text colors
+
+                  // Custom error handling
+                  errorCallback: function(msg, err) {
+                      console.warn("KaTeX error:", msg, err);
+                  }
+              });
+          });
+      });
+  </script>
+</html>

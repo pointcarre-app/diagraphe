@@ -5,6 +5,22 @@ All notable changes to **Diagraphe** will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/SemVer).
 
+## [v0.0.2] - 2025-12-16
+
+### 🌐 **CDN Testing & Distribution**
+
+#### **Added**
+- **esm.sh CDN Test Page** (`scenery/test-esm-sh.html`): New test page demonstrating hybrid CDN approach
+  - ES modules loaded via esm.sh (`esm.sh/gh/pointcarre-app/diagraphe@v0.0.2/`)
+  - Static assets (CSS, non-module JS) via jsDelivr (esm.sh COEP headers block static files)
+  - Documents esm.sh limitations for serving static assets
+- **Scenery Index Update**: Added link to esm.sh CDN test page in `scenery/index.html`
+
+#### **Documentation**
+- Clarified CDN usage patterns: esm.sh is optimized for ES modules, jsDelivr for static assets
+
+---
+
 ## [v0.0.1] - 2025-12-16
 
 ### 🎉 **Initial Release**
