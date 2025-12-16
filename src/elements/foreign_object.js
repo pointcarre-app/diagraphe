@@ -5,12 +5,11 @@ import { Element } from "./element.js";
  * Useful for rich text, forms, or any HTML content inside the graph
  *
  * Centering Strategy:
- * When centered=true:
- * - x, y represent the center point of the content
+ * When centered=true, the foreignObject uses a 1x1 "anchor point" approach:
+ * - The foreignObject is placed at (x, y) with minimal 1x1 dimensions
  * - overflow: visible allows content to spill out in all directions
- * - CSS transform: translate(-50%, -50%) centers the content around (x, y)
- * - If no foWidth/foHeight provided, defaults to 1x1 "anchor point" approach
- * - You can still provide explicit foWidth/foHeight to override the 1x1 default
+ * - CSS transform: translate(-50%, -50%) centers the content around the anchor
+ * This means you don't need to know the content dimensions ahead of time.
  */
 export class ForeignObject extends Element {
   /**
@@ -18,8 +17,8 @@ export class ForeignObject extends Element {
    * @param {Array<string>} [options.classes] - CSS classes for the foreignObject
    * @param {number} [options.x=0] - X position (top-left corner, or center if centered=true)
    * @param {number} [options.y=0] - Y position (top-left corner, or center if centered=true)
-   * @param {number} [options.foWidth=1] - Width of the foreignObject
-   * @param {number} [options.foHeight=1] - Height of the foreignObject
+   * @param {number} [options.foWidth=1] - Width of the foreignObject (ignored when centered=true)
+   * @param {number} [options.foHeight=1] - Height of the foreignObject (ignored when centered=true)
    * @param {boolean} [options.centered=false] - If true, uses overflow strategy to center content at (x, y)
    * @param {string} [options.html=''] - HTML content to embed
    * @param {Array<string>} [options.contentClasses] - CSS classes for the inner div wrapper
@@ -35,10 +34,15 @@ export class ForeignObject extends Element {
     this.x = options.x ?? 0;
     this.y = options.y ?? 0;
 
-    // When centered without explicit dimensions, default to 1x1 anchor point
-    // Otherwise, use the provided dimensions (or 1 as fallback)
-    this.foWidth = options.foWidth ?? 1;
-    this.foHeight = options.foHeight ?? 1;
+    // When centered, we use a 1x1 anchor point with overflow visible
+    // When not centered, we use the provided dimensions
+    if (this.centered) {
+      this.foWidth = 1;
+      this.foHeight = 1;
+    } else {
+      this.foWidth = options.foWidth ?? 1;
+      this.foHeight = options.foHeight ?? 1;
+    }
   }
 
   renderShape() {
@@ -70,11 +74,10 @@ export class ForeignObject extends Element {
     }
 
     // When centered, apply transform to center content around the anchor point
-    // width: max-content ensures the div shrinks to fit content for proper transform calculation
     if (this.centered) {
       div.setAttribute(
         "style",
-        "display: inline-block; width: max-content; transform: translate(-50%, -50%); overflow: visible;"
+        "display: inline-block; transform: translate(-50%, -50%); overflow: visible;"
       );
     }
 
