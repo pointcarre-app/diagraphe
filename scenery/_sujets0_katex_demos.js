@@ -83,8 +83,8 @@ export const sujets0KatexDemos = [
             svg: {
                 classes: ['bg-base-100 border-base-content/10 border-1 brc'],
             },
-            width: 550 / 1.5,
-            height: 350 / 1.5,
+            width: 550 / 1.7,
+            height: 350 / 1.7,
             elements: [{
                     nature: 'axes',
                     classes: ['fill-secondary'],
@@ -108,27 +108,27 @@ export const sujets0KatexDemos = [
                     tMax: 6,
                 }, {
                     nature: 'foreign_object',
-                    x: 98,
-                    y: 117,
+                    x: 106,
+                    y: 103,
                     centered: true,
                     html: '<div data-diagraphe-latex="true" class="text-sm font-bold">$1$</div>'
                 }, {
                     nature: 'foreign_object',
-                    x: 146,
-                    y: 170,
+                    x: 130,
+                    y: 155,
                     centered: true,
                     html: '<div data-diagraphe-latex="true" class="text-sm font-bold">$1$</div>'
                 }, {
                     // X-axis label: x
                     nature: 'foreign_object',
-                    x: 355,
-                    y: 170,
+                    x: 310,
+                    y: 155,
                     centered: true,
                     html: '<div data-diagraphe-latex="true">$x$</div>'
                 }, {
                     // Y-axis label: y
                     nature: 'foreign_object',
-                    x: 125,
+                    x: 115,
                     y: 10,
                     centered: true,
                     html: '<div data-diagraphe-latex="true">$y$</div>'

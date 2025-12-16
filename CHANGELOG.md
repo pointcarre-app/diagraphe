@@ -5,6 +5,17 @@ All notable changes to **Diagraphe** will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/SemVer).
 
+## [v0.0.4] - 2025-12-16
+
+### 🎨 **Demo Size Adjustments**
+
+#### **Changed**
+- **Spé sujet 1 Q8** (`scenery/_sujets0_katex_demos.js`): Reduced graph dimensions
+  - Changed size from 550/1.5 × 350/1.5 to 550/1.7 × 350/1.7
+  - Adjusted all `foreign_object` label positions for new dimensions
+
+---
+
 ## [v0.0.3] - 2025-12-16
 
 ### 🎨 **Demo Refinements**
