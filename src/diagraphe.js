@@ -1,4 +1,4 @@
-import { Rectangle } from './elements.js';
+import { Axes, CalendarHeatmap, Circle, ForeignObject, Function, Heatmap, Line, CartesianDot, ParametricCurve, ProbabilityTree, Rectangle } from './elements/index.js';
 
 export class Diagraphe {
   /**
@@ -126,9 +126,43 @@ export class Diagraphe {
       const nature = elementConfig.nature ?? "rect";
       let element;
 
+      // Inject innerWidth and innerHeight for all elements if not provided
+      elementConfig.width = elementConfig.width ?? this.innerWidth;
+      elementConfig.height = elementConfig.height ?? this.innerHeight;
+
       switch (nature) {
         case "rect":
           element = new Rectangle(elementConfig);
+          break;
+        case "circle":
+            element = new Circle(elementConfig);
+            break;
+        case "line":
+          element = new Line(elementConfig);
+          break;
+        case "heatmap":
+          element = new Heatmap(elementConfig);
+          break;
+        case "calendar-heatmap":
+          element = new CalendarHeatmap(elementConfig);
+          break;
+        case "axes":
+          element = new Axes(elementConfig);
+          break;
+        case "cartesian_dot":
+          element = new CartesianDot(elementConfig);
+          break;
+        case "function":
+          element = new Function(elementConfig);
+          break;
+        case "parametric_curve":
+          element = new ParametricCurve(elementConfig);
+          break;
+        case "probability_tree":
+          element = new ProbabilityTree(elementConfig);
+          break;
+        case "foreign_object":
+          element = new ForeignObject(elementConfig);
           break;
         default:
           throw new Error(`Unknown element nature: ${nature}`);

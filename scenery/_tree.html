@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="anchor">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Scenery : Probability Tree</title>
+
+    <!-- CSS Dependencies -->
+    <link rel="stylesheet" href="../dependencies/google_fonts.css" />
+    <link rel="stylesheet" href="../dependencies/open_dyslexic_regular.css" />
+    <link rel="stylesheet" href="../dependencies/daisyui@5.css" />
+    <link rel="stylesheet" href="../dependencies/daisyui@5themes.css" />
+
+    <!-- Our CSS -->
+    <link rel="stylesheet" href="../src/css/root.css" />
+    <link rel="stylesheet" href="../src/css/daisyui-svg-theming.css" />
+    <link rel="stylesheet" href="../src/css/global.css" />
+
+    <!-- JavaScript Dependencies -->
+    <script src="../dependencies/tailwindcssbrowser@4.js"></script>
+
+    <!-- Diagraphe Module -->
+    <script type="module">
+        import { Diagraphe } from '../src/diagraphe.js';
+
+        const standardMargin = {
+            top: 40,
+            right: 40,
+            bottom: 40,
+            left: 40
+        };
+
+        let treeConfigs = [
+            {
+                label: 'Horizontal Tree',
+                description: 'Simple probability tree (left to right)',
+                config: {
+                    width: 500,
+                    height: 300,
+                    margin: { ...standardMargin },
+                    svg: {
+                        classes: ['bg-base-300'],
+                    },
+                    elements: [{
+                        nature: 'probability_tree',
+                        classes: ['tree'],
+                        direction: 'horizontal',
+                        data: {
+                            label: '',
+                            children: [
+                                {
+                                    label: 'A',
+                                    probability: 0.6,
+                                    children: [
+                                        { label: 'A1', probability: 0.3 },
+                                        { label: 'A2', probability: 0.7 }
+                                    ]
+                                },
+                                {
+                                    label: 'B',
+                                    probability: 0.4,
+                                    children: [
+                                        { label: 'B1', probability: 0.5 },
+                                        { label: 'B2', probability: 0.5 }
+                                    ]
+                                }
+                            ]
+                        },
+                        branchClasses: ['stroke-primary'],
+                        labelClasses: ['fill-base-content'],
+                        // leafSpacing: 20,
+                    }]
+                }
+            },
+            {
+                label: 'Vertical Tree',
+                description: 'Simple probability tree (top to bottom)',
+                config: {
+                    width: 400,
+                    height: 400,
+                    margin: { ...standardMargin },
+                    svg: {
+                        classes: ['bg-base-300'],
+                    },
+                    elements: [{
+                        nature: 'probability_tree',
+                        classes: ['tree'],
+                        direction: 'vertical',
+                        data: {
+                            label: 'Start',
+                            children: [
+                                {
+                                    label: 'Head',
+                                    probability: 0.5,
+                                    children: [
+                                        { label: 'HH', probability: 0.5 },
+                                        { label: 'HT', probability: 0.5 }
+                                    ]
+                                },
+                                {
+                                    label: 'Tail',
+                                    probability: 0.5,
+                                    children: [
+                                        { label: 'TH', probability: 0.5 },
+                                        { label: 'TT', probability: 0.5 }
+                                    ]
+                                }
+                            ]
+                        },
+                        branchClasses: ['stroke-secondary'],
+                        labelClasses: ['fill-base-content'],
+                        // leafSpacing: 20,
+                    }]
+                }
+            }
+        ];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const grid = document.querySelector('#grid');
+            grid.innerHTML = '';
+
+            treeConfigs.forEach((demo, index) => {
+                const card = document.createElement('div');
+                card.className = 'card bg-base-100 shadow-xl';
+                card.setAttribute('data-demo-id', `demo-${index}`);
+
+                const configStr = JSON.stringify(demo.config, null, 2)
+                    .replace(/"([^"]+)":/g, '$1:');
+
+                card.innerHTML = `
+                    <div class="card-body">
+                        <h3 class="card-title text-sm">${demo.label}</h3>
+                        <p class="text-xs text-base-content/60">${demo.description}</p>
+                        <div class="graph-demo my-2"></div>
+                        <details class="collapse collapse-arrow bg-base-200">
+                            <summary class="collapse-title text-xs font-medium py-2 min-h-0">Config</summary>
+                            <div class="collapse-content">
+                                <pre class="text-xs overflow-x-auto"><code>${configStr}</code></pre>
+                            </div>
+                        </details>
+                    </div>
+                `;
+
+                grid.appendChild(card);
+
+                new Diagraphe({
+                    container: card.querySelector('.graph-demo'),
+                    ...demo.config
+                });
+            });
+        });
+    </script>
+
+  </head>
+  <body>
+    <main id="main" class="container mx-auto p-4">
+      <div id="grid" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+    </main>
+  </body>
+</html>

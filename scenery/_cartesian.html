@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="anchor">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Scenery : Curves</title>
+
+    <!-- CSS Dependencies -->
+    <link rel="stylesheet" href="../dependencies/google_fonts.css" />
+    <link rel="stylesheet" href="../dependencies/open_dyslexic_regular.css" />
+    <link rel="stylesheet" href="../dependencies/daisyui@5.css" />
+    <link rel="stylesheet" href="../dependencies/daisyui@5themes.css" />
+
+
+    <!-- Our CSS -->
+    <!-- Just variables (fonts & themes) -->
+    <link rel="stylesheet" href="../src/css/root.css" />
+
+    <!-- SVG theming : ie fill / stroke for semantic colors (content variants) -->
+    <link rel="stylesheet" href="../src/css/daisyui-svg-theming.css" />
+    <link rel="stylesheet" href="../src/css/global.css" />
+
+    <!-- JavaScript Dependencies -->
+    <script src="../dependencies/tailwindcssbrowser@4.js"></script>
+
+
+    <!-- Diagraphe Module -->
+    <script type="module">
+        import {
+            Diagraphe
+        } from '../src/diagraphe.js';
+
+
+        let baseConfig =  {
+                    width: 300,
+                    height: 300,
+                    margin: {
+                        top: 30,
+                        right: 40,
+                        bottom: 30,
+                        left: 40
+                    },
+                    svg: {
+                        classes: ['bg-base-300'],
+                    }
+                }
+            
+        let cartesian_space = {
+            xMin: -2,
+            xMax: 2,
+            yMin: -2,
+            yMax: 2,
+        }
+
+        let curvesConfig = [
+
+            {
+                label: 'Axes',
+                description: 'Cartesian element',
+                config:{
+                    ...baseConfig,
+                    elements: [{
+                        nature: 'axes',
+                        classes: ['fill-secondary'],
+                        grid: true,
+                    }]
+                }
+            },
+            {
+                label: 'Axes',
+                description: 'Cartesian element',
+                config : {
+                    ...baseConfig,
+                    elements: [{
+                        nature: 'axes',
+                        classes: ['fill-secondary'],
+                        grid: true,
+                        showTickLabels: true,
+                        xTicks: [0, 1, 5],
+                        yTicks: [1],
+                        showAxisLabels: true,
+                    },{
+                        nature: 'cartesian_dot',
+                        classes: ['fill-secondary'],
+                        label: "A",
+                        showLabel: true,
+                        x: 5,
+                        y: 3,
+                    }
+                ]
+                }
+            },{
+                label: 'Parametric curve',
+                description: 'Cartesian element',
+                config : {
+                    ...baseConfig,
+                    elements: [{
+                        ...cartesian_space,
+                        nature: 'axes',
+                        classes: ['fill-secondary'],
+                        xTicks: [1],
+                        yTicks: [1],
+                    },{
+                        ...cartesian_space,
+                        nature: 'parametric_curve',
+                        classes: ['stroke-primary'],
+                        x: (t) => Math.cos(t),
+                        y: (t) => Math.sin(t),
+                        tMin: 0,
+                        tMax: 2 * Math.PI,
+                    },// Cercle paramétré : x(t) = cos(t), y(t) = sin(t)
+                    {
+                        ...cartesian_space,
+                        nature: 'parametric_curve',
+                        classes: ['stroke-primary'],
+                        x: (t) => Math.cos(t),
+                        y: (t) => Math.sin(t),
+                        tMin: 0,
+                        tMax: 2 * Math.PI,
+                        tStep: 0.01,
+                    },
+
+                    // Parabole : x(t) = t, y(t) = t²
+                    {
+                    ...cartesian_space,
+                    nature: 'parametric_curve',
+                    classes: ['stroke-secondary'],
+                    x: (t) => t,
+                    y: (t) => t * t,
+                    tMin: -1.4,
+                    tMax: 1.4,
+                    },
+
+                    // Spirale : x(t) = t*cos(t), y(t) = t*sin(t)
+                    {
+                    nature: 'parametric_curve',
+                    classes: ['stroke-accent'],
+                    x: (t) => t * Math.cos(t),
+                    y: (t) => t * Math.sin(t),
+                    tMin: 0,
+                    tMax: 3 * Math.PI,
+                    },
+
+                    // Lissajous : x(t) = sin(3t), y(t) = sin(2t)
+                    {
+                    ...cartesian_space,
+                    nature: 'parametric_curve',
+                    classes: ['stroke-info'],
+                    x: (t) => Math.sin(3 * t),
+                    y: (t) => Math.sin(2 * t),
+                    tMin: 0,
+                    tMax: 2 * Math.PI,
+                    opacity: 0.5
+                    }]
+                }
+            },
+        ]
+
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const grid = document.querySelector('#grid');
+            grid.innerHTML = '';
+
+            curvesConfig.forEach((demo, index) => {
+                const card = document.createElement('div');
+                card.className = 'card bg-base-100 shadow-xl';
+                card.setAttribute('data-demo-id', `demo-${index}`);
+
+                // Build config display string
+                const configStr = JSON.stringify(demo.config, null, 2)
+                    .replace(/"([^"]+)":/g, '$1:'); // Remove quotes from keys
+
+                card.innerHTML = `
+                    <div class="card-body">
+                        <h3 class="card-title text-sm">${demo.label}</h3>
+                        <p class="text-xs text-base-content/60">${demo.description}</p>
+                        <div class="graph-demo my-2"></div>
+                        <details class="collapse collapse-arrow bg-base-200">
+                            <summary class="collapse-title text-xs font-medium py-2 min-h-0">Config</summary>
+                            <div class="collapse-content">
+                                <pre class="text-xs overflow-x-auto"><code>${configStr}</code></pre>
+                            </div>
+                        </details>
+                    </div>
+                `;
+
+                grid.appendChild(card);
+
+                new Diagraphe({
+                    container: card.querySelector('.graph-demo'),
+                    ...demo.config
+                });
+            });
+        });
+    </script>
+
+  </head>
+  <body>
+    <main id="main" class="container mx-auto p-4">
+
+      <div id="grid" class="grid grid-cols-1 md:grid-cols-2  gap-4"></div>
+    </main>
+  </body>
+</html>

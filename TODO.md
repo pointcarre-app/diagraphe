@@ -1,8 +1,6 @@
+# TODO
 
-
-
-
-# Critical
+## Critical
 
 
 - [ ] Ensure that Diagraphe never uses ids that are not dynamically generated 
@@ -12,9 +10,32 @@
 - [ ] "type" every argument of every constructor
 
 
-# Refactoring
+
+
+## 🧂 to 🔌 
+
+- showAxisLabels / showTickLabels -> showXLabels / showYLabels
+- add labelClass when there is a label (dots?)
+
+## Refactoring
 
 - [ ] Centralize dependencies
 
+## Elements
 
-- 
+### Refactoring
+
+
+- [ ] should heatmap and tree use basic_shapes ?
+    - Ragarding this approach: I may tolerate redundancy of axes just because it would create a spaghetti
+- [ ] split render method of axes and tree between renderShape and renderLabel
+
+### ABC
+
+- [ ] render label method
+- [x] rename Math* Cartesian*
+
+
+### Library
+
+- [ ] label for parametric curves
