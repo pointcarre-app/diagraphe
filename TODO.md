@@ -3,6 +3,9 @@
 ## Critical
 
 
+
+- [] Not tag conssitent with merge sel:dev and mad:main
+
 - [ ] Ensure that Diagraphe never uses ids that are not dynamically generated 
     - [ ] (and unique at least in a trame.html (Trame(trame.md).to_html_for_jinja..))
 
