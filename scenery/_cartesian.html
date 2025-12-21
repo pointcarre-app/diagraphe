@@ -31,20 +31,20 @@
         } from '../src/diagraphe.js';
 
 
-        let baseConfig =  {
-                    width: 300,
-                    height: 300,
-                    margin: {
-                        top: 30,
-                        right: 40,
-                        bottom: 30,
-                        left: 40
-                    },
-                    svg: {
-                        classes: ['bg-base-300'],
-                    }
-                }
-            
+        let baseConfig = {
+            width: 300,
+            height: 300,
+            margin: {
+                top: 30,
+                right: 40,
+                bottom: 30,
+                left: 40
+            },
+            svg: {
+                classes: ['bg-base-300'],
+            }
+        }
+
         let cartesian_space = {
             xMin: -2,
             xMax: 2,
@@ -57,7 +57,7 @@
             {
                 label: 'Axes',
                 description: 'Cartesian element',
-                config:{
+                config: {
                     ...baseConfig,
                     elements: [{
                         nature: 'axes',
@@ -65,11 +65,10 @@
                         grid: true,
                     }]
                 }
-            },
-            {
+            }, {
                 label: 'Axes',
                 description: 'Cartesian element',
-                config : {
+                config: {
                     ...baseConfig,
                     elements: [{
                         nature: 'axes',
@@ -79,20 +78,86 @@
                         xTicks: [0, 1, 5],
                         yTicks: [1],
                         showAxisLabels: true,
-                    },{
+                    }, {
                         nature: 'cartesian_dot',
                         classes: ['fill-secondary'],
                         label: "A",
                         showLabel: true,
                         x: 5,
                         y: 3,
-                    }
-                ]
+                    }]
                 }
-            },{
+            }, {
                 label: 'Parametric curve',
                 description: 'Cartesian element',
-                config : {
+                config: {
+                    ...baseConfig,
+                    elements: [{
+                            ...cartesian_space,
+                            nature: 'axes',
+                            classes: ['fill-secondary'],
+                            xTicks: [1],
+                            yTicks: [1],
+                        }, {
+                            ...cartesian_space,
+                            nature: 'parametric_curve',
+                            classes: ['stroke-primary'],
+                            x: (t) => Math.cos(t),
+                            y: (t) => Math.sin(t),
+                            tMin: 0,
+                            tMax: 2 * Math.PI,
+                        }, // Cercle paramétré : x(t) = cos(t), y(t) = sin(t)
+                        {
+                            ...cartesian_space,
+                            nature: 'parametric_curve',
+                            classes: ['stroke-primary'],
+                            x: (t) => Math.cos(t),
+                            y: (t) => Math.sin(t),
+                            tMin: 0,
+                            tMax: 2 * Math.PI,
+                            tStep: 0.01,
+                        },
+
+                        // Parabole : x(t) = t, y(t) = t²
+                        {
+                            ...cartesian_space,
+                            nature: 'parametric_curve',
+                            classes: ['stroke-secondary'],
+                            x: (t) => t,
+                            y: (t) => t * t,
+                            tMin: -1.4,
+                            tMax: 1.4,
+                        },
+
+                        // Spirale : x(t) = t*cos(t), y(t) = t*sin(t)
+                        {
+                            nature: 'parametric_curve',
+                            classes: ['stroke-accent'],
+                            x: (t) => t * Math.cos(t),
+                            y: (t) => t * Math.sin(t),
+                            tMin: 0,
+                            tMax: 3 * Math.PI,
+                        },
+
+                        // Lissajous : x(t) = sin(3t), y(t) = sin(2t)
+                        {
+                            ...cartesian_space,
+                            nature: 'parametric_curve',
+                            classes: ['stroke-info'],
+                            x: (t) => Math.sin(3 * t),
+                            y: (t) => Math.sin(2 * t),
+                            tMin: 0,
+                            tMax: 2 * Math.PI,
+                            opacity: 0.5
+                        }
+                    ]
+                }
+            },
+
+            {
+                label: 'Dashed curves',
+                description: 'Testing dasharray parameter',
+                config: {
                     ...baseConfig,
                     elements: [{
                         ...cartesian_space,
@@ -100,7 +165,7 @@
                         classes: ['fill-secondary'],
                         xTicks: [1],
                         yTicks: [1],
-                    },{
+                    }, {
                         ...cartesian_space,
                         nature: 'parametric_curve',
                         classes: ['stroke-primary'],
@@ -108,52 +173,29 @@
                         y: (t) => Math.sin(t),
                         tMin: 0,
                         tMax: 2 * Math.PI,
-                    },// Cercle paramétré : x(t) = cos(t), y(t) = sin(t)
-                    {
+                        dasharray: "5,5"
+                    }, {
                         ...cartesian_space,
                         nature: 'parametric_curve',
-                        classes: ['stroke-primary'],
-                        x: (t) => Math.cos(t),
-                        y: (t) => Math.sin(t),
+                        classes: ['stroke-secondary'],
+                        x: (t) => t,
+                        y: (t) => t * t,
+                        tMin: -1.4,
+                        tMax: 1.4,
+                        dasharray: "10,3"
+                    }, {
+                        ...cartesian_space,
+                        nature: 'parametric_curve',
+                        classes: ['stroke-accent'],
+                        x: (t) => Math.sin(3 * t),
+                        y: (t) => Math.sin(2 * t),
                         tMin: 0,
                         tMax: 2 * Math.PI,
-                        tStep: 0.01,
-                    },
-
-                    // Parabole : x(t) = t, y(t) = t²
-                    {
-                    ...cartesian_space,
-                    nature: 'parametric_curve',
-                    classes: ['stroke-secondary'],
-                    x: (t) => t,
-                    y: (t) => t * t,
-                    tMin: -1.4,
-                    tMax: 1.4,
-                    },
-
-                    // Spirale : x(t) = t*cos(t), y(t) = t*sin(t)
-                    {
-                    nature: 'parametric_curve',
-                    classes: ['stroke-accent'],
-                    x: (t) => t * Math.cos(t),
-                    y: (t) => t * Math.sin(t),
-                    tMin: 0,
-                    tMax: 3 * Math.PI,
-                    },
-
-                    // Lissajous : x(t) = sin(3t), y(t) = sin(2t)
-                    {
-                    ...cartesian_space,
-                    nature: 'parametric_curve',
-                    classes: ['stroke-info'],
-                    x: (t) => Math.sin(3 * t),
-                    y: (t) => Math.sin(2 * t),
-                    tMin: 0,
-                    tMax: 2 * Math.PI,
-                    opacity: 0.5
+                        dasharray: "2,2"
                     }]
                 }
             },
+
         ]
 
 
