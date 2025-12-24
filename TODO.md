@@ -4,6 +4,8 @@
 
 
 
+-  [] html: '<div data-diagraphe-latex="true" class="text-primary" style="white-space: nowrap;">$m=4$</div>', necessary if "="
+
 - [] Not tag conssitent with merge sel:dev and mad:main
 
 - [ ] Ensure that Diagraphe never uses ids that are not dynamically generated 
